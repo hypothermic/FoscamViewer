@@ -1,0 +1,267 @@
+/*******************************\
+ * > interface.css           < *
+ * FoscamViewer by hypothermic *
+ * www.github.com/hypothermic  *
+ * See LICENSE.txt for legal   *
+\*******************************/
+
+/* Global UI properties */
+.iface {
+    -fx-accent: #ff7700;
+    -fx-focus-color: #ff7700;
+}
+
+/* Login screen (connect) */
+.iface-connect {
+    -fx-background-color: linear-gradient(#5e5e5e 0%, #6e6e6e 100%);
+    -fx-border-color: #5e5e5e;
+}
+
+.iface-connect-subground {
+    -fx-background-color: #575757;
+    -fx-border-color: #575757;
+}
+
+.iface-connect-textflow {
+    -fx-text-alignment: center;
+}
+
+.iface-connect-field {
+    /*-fx-background-color: #999999;*/
+    -fx-background-color: linear-gradient(#afafaf 0%, #999999 100%);
+    -fx-background-radius: 0.5em;
+    -fx-border-color: #383838;
+    -fx-border-radius: 0.5em;
+    -fx-prompt-text-fill: #383838;
+}
+
+.iface-connect-field:hover,
+.iface-connect-field:focused {
+    -fx-border-color: #ff7700;
+}
+
+/*.iface-connect-btn {
+    -fx-background-color: #5e5e5e;
+    -fx-border-color: #5e5e5e;
+}*/
+
+.iface-connect-btn {
+    -fx-background-color: linear-gradient(#afafaf 0%, #999999 100%);
+    -fx-background-radius: 0.5em;
+    -fx-border-color: #383838;
+    -fx-border-radius: 0.5em;
+    -fx-effect: null;
+}
+
+.iface-connect-btn:hover,
+.iface-connect-btn:focused {
+    -fx-border-color: #ff7700;
+}
+
+.iface-connect-bar .track {
+    -fx-background-color: linear-gradient(#afafaf 0%, #999999 100%);
+    -fx-background-radius: 0.5em;
+    -fx-border-color: #383838;
+    -fx-border-radius: 0.5em;
+    -fx-effect: null;
+}
+
+.iface-connect-protocol {
+    -fx-background-color: #383838;
+    -fx-background-radius: 0.5em;
+    -fx-border-color: #383838;
+    -fx-border-radius: 0.5em;
+    -fx-text-color: black;
+}
+
+.iface-connect-protocol .list-cell:filled:selected:focused, .list-cell:filled:selected {
+    -fx-background-color: #ff7700;
+    -fx-text-fill: white;
+    -fx-border-radius: 0.5em;
+    -fx-background-radius: 0.5em;
+}
+
+.iface-connect-protocol .list-cell:even,
+.iface-connect-protocol .list-cell:odd {
+    -fx-background-color: #383838;
+    -fx-text-fill: white;
+}
+
+.iface-connect-protocol .scroll-bar:vertical .increment-arrow,
+.iface-connect-protocol .scroll-bar:vertical .decrement-arrow,
+.iface-connect-protocol .scroll-bar:vertical .increment-button,
+.iface-connect-protocol .scroll-bar:vertical .decrement-button,
+.iface-connect-protocol .scroll-bar:horizontal .increment-arrow,
+.iface-connect-protocol .scroll-bar:horizontal .decrement-arrow,
+.iface-connect-protocol .scroll-bar:horizontal .increment-button,
+.iface-connect-protocol .scroll-bar:horizontal .decrement-button {
+    -fx-padding:0;
+}
+
+/* Menu bar */
+.iface-menu {
+    -fx-background-color: #5e5e5e;
+    -fx-border-color: #5e5e5e;
+}
+
+.iface-menu .label {
+    -fx-text-fill: white;
+}
+
+.menu-bar > .container > .menu-button:hover,
+.menu-bar > .container > .menu-button:focused,
+.menu-bar > .container > .menu-button:showing {
+    -fx-background-color: white;
+}
+
+.menu-bar > .container > .menu-button:hover > .label,
+.menu-bar > .container > .menu-button:focused > .label,
+.menu-bar > .container > .menu-button:showing > .label {
+    -fx-text-fill: #5e5e5e;
+}
+
+    /* Menu item */
+    .iface-menu .menu-item {
+        -fx-background-color: white;
+        -fx-border-color: white;
+    }
+
+    .iface-menu .menu-item .label {
+        -fx-text-fill: black;
+    }
+
+    .iface-menu .menu-item:focused {
+        -fx-background-color: #ff7700;
+    }
+
+    .iface-menu .menu-item:focused .label {
+        -fx-text-fill: white;
+    }
+
+    .iface-menu .context-menu {
+        /*-fx-skin: "com.sun.javafx.scene.control.skin.ContextMenuSkin";*/
+        -fx-background-color: white;
+        -fx-background-insets: 0, 1, 2;
+        -fx-background-radius: 0 6 6 6, 0 5 5 5, 0 4 4 4;
+        /*-fx-padding: 0.333333em 0.083333em 0.666667em 0.083333em;*/
+    }
+
+    /*.context-menu:hover {
+        -fx-skin: "com.sun.javafx.scene.control.skin.ContextMenuSkin";
+        -fx-background-color: #ff7700;
+        -fx-background-insets: 0, 1, 2;
+        -fx-background-radius: 0 6 6 6, 0 5 5 5, 0 4 4 4;
+        -fx-padding: 0.333333em 0.083333em 0.666667em 0.083333em;
+    }*/
+    
+/* Top-right element, aka "logo", with minimize and exit buttons */
+.iface-logo-cover {
+    -fx-background-color: #5e5e5e;
+    -fx-border-color: #5e5e5e;
+}
+
+.iface-logo-text {
+    -fx-text-fill: rgba(255, 255, 255, 0.4);
+    -fx-text-align: right;
+}
+
+.iface-logo-exitbtn:selected .mark {
+    -fx-background-color: transparent;
+}
+
+.iface-logo-exitbtn .box {
+    -fx-background-color: #5e5e5e;
+    -fx-background-radius: 4em;
+    -fx-border-color: #ff1a00;
+    -fx-border-radius: 4em;
+}
+
+.iface-logo-exitbtn:selected .box,
+.iface-logo-exitbtn:hover .box {
+    -fx-background-color: #ff3720;
+}
+
+.iface-logo-minbtn:selected .mark {
+    -fx-background-color: transparent;
+}
+
+.iface-logo-minbtn .box {
+    -fx-background-color: #5e5e5e;
+    -fx-background-radius: 4em;
+    -fx-border-color: #ff4300;
+    -fx-border-radius: 4em;
+}
+
+.iface-logo-minbtn:selected .box,
+.iface-logo-minbtn:hover .box {
+    -fx-background-color: #ff591e;
+}
+
+.iface-panel-container {
+    -fx-background-color: #686868;
+}
+
+.iface-panel-title {
+    -fx-text-fill: white;
+}
+
+.iface-panel-btn {
+    -fx-background-color: linear-gradient(#afafaf 0%, #999999 100%);
+    -fx-background-radius: 0.5em;
+    -fx-border-color: #383838;
+    -fx-border-radius: 0.5em;
+    -fx-shadow-highlight-color: transparent;
+    -fx-effect: null;
+}
+
+.iface-panel-btn:selected {
+    -fx-border-color: #ff7700;
+}
+
+.iface-panel-ptzctrl {
+    -fx-fill: linear-gradient(#afafaf 0%, #999999 100%);
+    -fx-stroke: #383838;
+    -fx-shadow-highlight-color: transparent;
+}
+
+.iface-panel-ptzctrl-btn {
+    -fx-opacity: 0.75;
+}
+
+
+.iface-panel-ptzctrl-btn:hover {
+    -fx-opacity: 1;
+}
+
+.iface-view-container {
+    -fx-background-color: #878787;
+}
+
+.iface-view-content {
+    -fx-border-radius: 0em;
+}
+
+.iface-about-container {
+    -fx-background-color: linear-gradient(rgba(0, 0, 0, 0.45) 0%, rgba(0, 0, 0, 0.35) 100%);
+    -fx-background-opacity: 25%;
+}
+
+.iface-about-dialog {
+    -fx-background-color: linear-gradient(rgba(0, 0, 0, 0.65) 0%, rgba(0, 0, 0, 0.75) 100%);
+    -fx-background-opacity: 20%;
+    -fx-border-style: solid;
+    -fx-border-color: #ff7700;
+    -fx-border-radius: 0.05em;
+}
+
+.iface-about-title {
+    -fx-text-fill: rgba(255, 255, 255, 1);
+}
+
+.iface-about-splitter {
+    -fx-fill: rgba(255, 199, 0, 0.6);
+}
+
+.iface-about-body {
+    -fx-text-fill: rgba(255, 255, 255, 0.75);
+}
