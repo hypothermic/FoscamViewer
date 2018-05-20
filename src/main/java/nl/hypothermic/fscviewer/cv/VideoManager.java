@@ -1,0 +1,53 @@
+package nl.hypothermic.fscviewer.cv;
+
+import java.nio.ByteBuffer;
+import java.nio.ShortBuffer;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.TimeUnit;
+
+import javax.sound.sampled.AudioFormat;
+import javax.sound.sampled.AudioSystem;
+import javax.sound.sampled.DataLine;
+import javax.sound.sampled.FloatControl;
+import javax.sound.sampled.SourceDataLine;
+
+import org.bytedeco.javacpp.avcodec;
+import org.bytedeco.javacv.FFmpegFrameGrabber;
+import org.bytedeco.javacv.Frame;
+import org.bytedeco.javacv.Java2DFrameConverter;
+
+import javafx.application.Platform;
+import javafx.embed.swing.SwingFXUtils;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import nl.hypothermic.fscviewer.core.TransmissionProtocol;
+import nl.hypothermic.fscviewer.core.VideoCodec;
+
+/*******************************\
+ * > VideoManager.java       < *
+ * FoscamViewer by hypothermic *
+ * www.github.com/hypothermic  *
+ *  See LICENSE.md for legal   *
+\*******************************/
+
+public class VideoManager {
+	
+	private final String MRL;
+	private final ImageView view;
+	
+	/** If VideoView is connected to camera and processing video **/
+	
+	public final VideoPlayThread playThread;
+	
+	public VideoManager(String MRL, TransmissionProtocol prot, VideoCodec codec, ImageView view) {
+		this.MRL = MRL;
+		this.view = view;
+		playThread = new VideoPlayThread(MRL, view, prot, codec);
+	    playThread.start();
+	}
+	
+	public void stop() {
+		playThread.interrupt();
+	}
+}

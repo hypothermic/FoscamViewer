@@ -1,4 +1,4 @@
-## FoscamViewer
+# FoscamViewer
 Fast, free and open-source desktop application to view and control your Foscam IP camera.
 
 ![FoscamViewer screenshot sample](sample.png)
@@ -8,9 +8,17 @@ Fast, free and open-source desktop application to view and control your Foscam I
 - Slick and responsive design
 - Easy to use: no messing around with advanced settings
 
-## TODO
-- Load animation while connecting with camera live feed.
-- Improve infrared controls
+## Changelog
+- v1.12
+    - Added video load animation
+    - Added PTZ reset button
+    - Added launch.sh
+    - Fixed massive RAM leak in the play thread
+    - Seperated VideoProcessor into multiple classes
+    - Renamed threads for easier profiling
+
+- v1.10
+    - Initial release
 
 ## Mentions
 - FoscamViewer is not affiliated, associated, authorized, endorsed by, or in any way officially connected with Shenzhen Foscam Intelligent Technology Limited, or any of its subsidiaries or its affiliates. The official Foscam website can be found at https://www.foscam.com. The name “Foscam” as well as related names, marks, emblems and images are registered trademarks of Shenzhen Foscam Intelligent Technology Limited.

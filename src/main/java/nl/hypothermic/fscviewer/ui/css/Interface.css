@@ -228,6 +228,12 @@
     -fx-opacity: 0.75;
 }
 
+.iface-panel-slider {
+    -fx-control-inner-background: #878787;
+    -fx-padding: 0;
+    -fx-border-width: 0;
+    -fx-border-size: 0;
+}
 
 .iface-panel-ptzctrl-btn:hover {
     -fx-opacity: 1;

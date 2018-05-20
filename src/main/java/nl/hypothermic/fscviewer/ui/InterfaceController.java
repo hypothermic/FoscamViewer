@@ -6,6 +6,8 @@ import java.net.URL;
 import java.util.ResourceBundle;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+import java.util.concurrent.ThreadFactory;
+import java.util.concurrent.atomic.AtomicInteger;
 
 import javax.imageio.ImageIO;
 
@@ -36,7 +38,6 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.FileChooser;
 import javafx.util.Callback;
-import nl.hypothermic.fscviewer.FoscamViewer;
 import nl.hypothermic.fscviewer.core.I18N;
 import nl.hypothermic.fscviewer.core.Session;
 import nl.hypothermic.fscviewer.core.StageManager;
@@ -127,6 +128,8 @@ public class InterfaceController implements IController {
         codecField.getItems().clear();
         codecField.getItems().addAll("Auto", "H264", "MPEG");
         codecField.getSelectionModel().select(0); 
+        videoView.setScaleX(0.1);
+        videoView.setScaleY(0.1);
         videoContainer.widthProperty().addListener(new ChangeListener() {
 			@Override
 			public void changed(ObservableValue observable, Object oldValue, Object newValue) {
@@ -136,9 +139,17 @@ public class InterfaceController implements IController {
         });
 	}
 	
-	// Global vars
+	// --- Global vars --- //
 	/*-*/ private Session s;
-	/*-*/ private ExecutorService threadpool = Executors.newCachedThreadPool();
+	/*-*/ private static volatile AtomicInteger counter = new AtomicInteger();
+	/*-*/ public static final class NamedThreadFactory implements ThreadFactory {
+		      public Thread newThread(Runnable r) {
+		    	  // note: cached threadpool will reuse depleted threads, numbers in profiler will be confusing
+			      return new Thread(r, "FSCV-TF-" + counter.incrementAndGet());
+		      }
+	      }
+	/*-*/ public static final NamedThreadFactory ntfInstance = new NamedThreadFactory();
+	/*-*/ private ExecutorService threadpool = Executors.newCachedThreadPool(ntfInstance);
 	/*-*/ private static XLogger log = new XLogger(System.out);
 	
 	/*-*/ public void prepareShutdown() {
@@ -150,7 +161,7 @@ public class InterfaceController implements IController {
 		}
 	}
 	
-	// Connect screen
+	// --- Connect screen --- //
 	@FXML private AnchorPane connectPane;
 	@FXML private TextField connectAddr;
 	@FXML private TextField connectPort;
@@ -231,7 +242,7 @@ public class InterfaceController implements IController {
 		connectPane.setVisible(false);
 	}
 	
-	// Menu
+	// --- Menu --- //
 	@FXML private MenuBar menubar;
 	@FXML private AnchorPane logo;
 	@FXML private CheckBox btnMinimize;
@@ -342,11 +353,15 @@ public class InterfaceController implements IController {
 		threadpool.execute(() -> s.f.ptzMoveRight());
 	}
 	
-	// Video view
+	@FXML private void onPtzResetRequested() {
+		threadpool.execute(() -> s.f.ptzResetPosition());
+	}
+	
+	// --- Video view --- //
 	@FXML private BorderPane videoContainer;
 	@FXML private ImageView videoView;
 	
-	// About menu
+	// --- About menu --- //
 	@FXML private BorderPane aboutMenu;
 	
 	@FXML private void onAboutOpenRequested() {

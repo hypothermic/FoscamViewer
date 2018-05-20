@@ -3,7 +3,7 @@ package nl.hypothermic.fscviewer.core;
 import javafx.scene.image.ImageView;
 import nl.hypothermic.foscamlib.Foscam;
 import nl.hypothermic.foscamlib.exception.ConnectException;
-import nl.hypothermic.fscviewer.cv.VideoProcessor;
+import nl.hypothermic.fscviewer.cv.VideoManager;
 
 /*******************************\
  * > Session.java            < *
@@ -41,10 +41,10 @@ public class Session {
 			;
 		}
 		
-		private VideoProcessor vp;
+		private VideoManager vp;
 		
 		public void connect() {
-			vp = new VideoProcessor("rtsp://" + user + ":" + pwd + "@" + host + ":" + port + "/videoMain", prot, codec, videoView);
+			vp = new VideoManager("rtsp://" + user + ":" + pwd + "@" + host + ":" + port + "/videoMain", prot, codec, videoView);
 		}
 		
 		public void disconnect() {

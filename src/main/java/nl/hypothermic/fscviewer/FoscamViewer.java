@@ -35,6 +35,7 @@ public class FoscamViewer extends Application {
 	@Override
 	public void start(Stage xs) throws IOException {
 		this.xs = xs;
+		Thread.currentThread().setName("FSCV-UI");
 		ResourceBundle i18n;
 		if (prefLang != null) {
 			i18n = ResourceBundle.getBundle("locale.i18n", prefLang);

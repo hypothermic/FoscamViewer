@@ -15,7 +15,10 @@
    <children>
       <BorderPane fx:id="videoContainer" layoutX="275.0" layoutY="31.0" prefHeight="588.0" prefWidth="805.0" styleClass="iface-view-container" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="275.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="31.0">
          <center>
-            <ImageView fx:id="videoView" pickOnBounds="true" preserveRatio="true" styleClass="iface-view-content" BorderPane.alignment="CENTER" />
+            <ImageView fx:id="videoView" pickOnBounds="true" preserveRatio="true" styleClass="iface-view-content" BorderPane.alignment="CENTER">
+               <image>
+                  <Image url="@/assets/prog.gif" />
+               </image></ImageView>
          </center>
       </BorderPane>
       <AnchorPane layoutY="31.0" maxWidth="275.0" minWidth="275.0" prefHeight="589.0" prefWidth="275.0" styleClass="iface-panel-container" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="31.0">
@@ -51,6 +54,7 @@
                   <Image url="@/assets/arrow.png" />
                </image>
             </ImageView>
+            <Circle fill="WHITE" layoutX="72.0" layoutY="175.0" onMouseClicked="#onPtzResetRequested" radius="8.0" stroke="TRANSPARENT" strokeType="INSIDE" styleClass="iface-panel-ptzctrl-btn" AnchorPane.leftAnchor="63.8" AnchorPane.topAnchor="166.8" />
          </children></AnchorPane>
       <MenuBar fx:id="menubar" maxHeight="31.0" minWidth="31.0" prefHeight="31.0" prefWidth="940.0" styleClass="iface-menu" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="110.0" AnchorPane.topAnchor="0.0">
          <menus>
