@@ -12,7 +12,7 @@
 
 <!-- This file is part of FoscamViewer by hypothermic -->
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="620.0" prefWidth="1080.0" styleClass="iface" stylesheets="@css/Interface.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane fx:id="root" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="620.0" prefWidth="1080.0" styleClass="iface" stylesheets="@css/Interface.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <BorderPane fx:id="rootVideoContainer" layoutX="275.0" layoutY="31.0" prefHeight="588.0" prefWidth="805.0" styleClass="iface-view-container" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="275.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="31.0">
          <center>
@@ -64,7 +64,7 @@
                </image>
             </ImageView>
             <Circle fill="WHITE" layoutX="72.0" layoutY="175.0" onMouseClicked="#onPtzResetRequested" radius="8.0" stroke="TRANSPARENT" strokeType="INSIDE" styleClass="iface-panel-ptzctrl-btn" AnchorPane.leftAnchor="63.8" AnchorPane.topAnchor="166.8" />
-            <Label fx:id="infoField" layoutX="12.0" layoutY="568.0" styleClass="iface-panel-infoField" text="RAM: 0%  |  CPU: 0%" AnchorPane.bottomAnchor="6.0" AnchorPane.leftAnchor="12.0" AnchorPane.rightAnchor="12.0" />
+            <Label fx:id="infoField" layoutX="12.0" layoutY="568.0" styleClass="iface-panel-infoField" text="RAM: 0%  |  CPU: 0c" AnchorPane.bottomAnchor="6.0" AnchorPane.leftAnchor="12.0" AnchorPane.rightAnchor="12.0" />
             <ImageView fx:id="panelHideBtn" fitHeight="35.0" fitWidth="35.0" layoutX="256.0" layoutY="277.0" onMouseClicked="#onPanelHideRequested" opacity="0.9" styleClass="iface-panel-flex-hidebtn" AnchorPane.bottomAnchor="277.0" AnchorPane.leftAnchor="240.0" AnchorPane.topAnchor="277.0">
                <image>
                   <Image url="@/assets/arrow.png" />
@@ -95,7 +95,7 @@
       </MenuBar>
       <AnchorPane fx:id="logo" layoutX="751.0" layoutY="23.0" maxHeight="31.0" maxWidth="110.0" minHeight="31.0" minWidth="110.0" prefHeight="31.0" prefWidth="110.0" styleClass="iface-logo-cover" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
-            <Label styleClass="iface-logo-text" text="v1.10" textAlignment="RIGHT" textFill="WHITE" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
+            <Label styleClass="iface-logo-text" text="v1.12" textAlignment="RIGHT" textFill="WHITE" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
                <font>
                   <Font size="12.0" />
                </font>

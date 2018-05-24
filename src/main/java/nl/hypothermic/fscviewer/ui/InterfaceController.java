@@ -2,9 +2,11 @@ package nl.hypothermic.fscviewer.ui;
 
 import java.io.File;
 import java.io.IOException;
+import java.io.OutputStream;
+import java.io.PrintStream;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.ResourceBundle;
-import java.util.TimerTask;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ThreadFactory;
@@ -40,6 +42,8 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.paint.Color;
+import javafx.scene.shape.Line;
 import javafx.stage.FileChooser;
 import javafx.util.Callback;
 import javafx.util.Duration;
@@ -142,9 +146,60 @@ public class InterfaceController implements IController {
 				videoView.autosize();
 			}
         });
+        videoView.setOnMousePressed(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent event) {
+                lastclickX = event.getSceneX();
+                lastclickY = event.getSceneY();
+                event.consume();
+            }
+        });
+        videoView.setOnMouseDragged(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent event) {
+            	double maxX = vidX();
+            	double maxY = vidY();
+                if (event.getSceneX() < maxX && event.getSceneY() < maxY) {
+                    Line line = new Line(lastclickX, lastclickY, event.getSceneX(), event.getSceneY());
+                    line.setFill(null);
+                    line.setStroke(Color.ORANGERED);
+                    line.setStrokeWidth(2);
+                    root.getChildren().add(line);
+                    synchronized (syncLock) {
+                    	lines.add(line);
+                    }
+                    threadpool.execute(new Runnable() {
+                    	@Override
+                    	public void run() {
+                    		try {
+								Thread.sleep(750);
+							} catch (InterruptedException e) {
+								;
+							}
+                    		synchronized (syncLock) {
+                            	for (Line line : lines) {
+                            		Platform.runLater(new Runnable() {
+										@Override
+										public void run() {
+											root.getChildren().remove(line);
+										}
+                            		});
+                            		lines.remove(line);
+                            		// fixme: rsc leak
+                            	}
+                            }
+                    	}
+                    });
+                }
+                lastclickX = event.getSceneX() > maxX ? maxX : event.getSceneX();
+                lastclickY = event.getSceneY() > maxY ? maxY : event.getSceneY();
+            }
+        });
+        System.setErr(errorStream);
 	}
 	
 	// --- Global vars --- //
+	@FXML private AnchorPane root;
 	/*-*/ private Session s;
 	/*-*/ private static volatile AtomicInteger counter = new AtomicInteger();
 	/*-*/ public static final class NamedThreadFactory implements ThreadFactory {
@@ -156,6 +211,12 @@ public class InterfaceController implements IController {
 	/*-*/ public static final NamedThreadFactory ntfInstance = new NamedThreadFactory();
 	/*-*/ private ExecutorService threadpool = Executors.newCachedThreadPool(ntfInstance);
 	/*-*/ private static XLogger log = new XLogger(System.out);
+	
+	/*-*/ protected static final PrintStream errorStream = new PrintStream(new OutputStream(){
+	    public void write(int data) {
+	        ;
+	    }
+	});
 	
 	/*-*/ public void prepareShutdown() {
 		if (s != null) {
@@ -405,6 +466,17 @@ public class InterfaceController implements IController {
 	// --- Video view --- //
 	@FXML private BorderPane rootVideoContainer;
 	@FXML private ImageView videoView;
+	/*-*/ private static double lastclickX;
+	/*-*/ private static double lastclickY;
+	/*-*/ private static final Object syncLock = new Object();
+	/*-*/ private static volatile ArrayList<Line> lines = new ArrayList<Line>();
+	
+	/*-*/ private double vidX() {
+		return videoView.getImage().getWidth();
+	}
+	/*-*/ private double vidY() {
+		return videoView.getImage().getHeight();
+	}
 	
 	// --- About menu --- //
 	@FXML private BorderPane aboutMenu;
