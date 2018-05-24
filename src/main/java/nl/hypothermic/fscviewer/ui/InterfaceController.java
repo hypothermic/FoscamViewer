@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
+import java.util.TimerTask;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ThreadFactory;
@@ -14,6 +15,9 @@ import javax.imageio.ImageIO;
 import org.bytedeco.javacpp.avcodec;
 import org.bytedeco.javacv.FFmpegFrameGrabber;
 
+import javafx.animation.Animation;
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
 import javafx.application.Platform;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
@@ -38,6 +42,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.FileChooser;
 import javafx.util.Callback;
+import javafx.util.Duration;
 import nl.hypothermic.fscviewer.core.I18N;
 import nl.hypothermic.fscviewer.core.Session;
 import nl.hypothermic.fscviewer.core.StageManager;
@@ -130,7 +135,7 @@ public class InterfaceController implements IController {
         codecField.getSelectionModel().select(0); 
         videoView.setScaleX(0.1);
         videoView.setScaleY(0.1);
-        videoContainer.widthProperty().addListener(new ChangeListener() {
+        rootVideoContainer.widthProperty().addListener(new ChangeListener() {
 			@Override
 			public void changed(ObservableValue observable, Object oldValue, Object newValue) {
 				videoView.setFitWidth((double) newValue);
@@ -265,7 +270,11 @@ public class InterfaceController implements IController {
 		StageManager.demaximize();
 	}
 	
-	// Panel
+	// --- Panel --- //
+	@FXML private AnchorPane rootPanelContainer;
+	@FXML private ImageView panelHideBtn;
+	@FXML private ImageView panelShowBtn;
+	/*-*/ private boolean isPanelHidden = false;
 	@FXML private Label panelTitle;
 	@FXML private ToggleButton mirrorBtn;
 	@FXML private ToggleButton flipBtn;
@@ -276,6 +285,14 @@ public class InterfaceController implements IController {
 	@FXML private ImageView ptzDownBtn;
 	@FXML private ImageView ptzLeftBtn;
 	@FXML private ImageView ptzRightBtn;
+	@FXML private Label infoField;
+	/*-*/ private Timeline infoFieldTask = new Timeline(new KeyFrame(Duration.millis(1000), ae -> new Runnable() {
+		@Override
+		public void run() {
+			infoField.setText("RAM: " + Math.round(100 * (Runtime.getRuntime().totalMemory() - Runtime.getRuntime().freeMemory()) / Runtime.getRuntime().totalMemory()) + "%  |  "
+			                + "CPU: " + Runtime.getRuntime().availableProcessors() + "c");
+		}
+	}.run()));
 	
 	/*-*/ private void onPanelInit() {
 		Platform.runLater(new Runnable() {
@@ -294,8 +311,36 @@ public class InterfaceController implements IController {
 				}
 				flipBtn.setDisable(false);
 				infraBtn.setText(I18N.getString("iface.panel.button.infraled.enable"));
+				infoFieldTask.setCycleCount(Animation.INDEFINITE);
+				infoFieldTask.play();
 			}
 		});
+	}
+	
+	@FXML private void onPanelHideRequested() {
+		if (!isPanelHidden) {
+			onPanelHide();
+			isPanelHidden ^= true;
+		}
+	}
+	
+	@FXML private void onPanelShowRequested() {
+		if (isPanelHidden) {
+			onPanelShow();
+			isPanelHidden ^= true;
+		}
+	}
+	
+	/*-*/ private void onPanelHide() {
+		rootPanelContainer.setVisible(false);
+		AnchorPane.setLeftAnchor(rootVideoContainer, 0.0);
+		panelShowBtn.setVisible(true);
+	}
+	
+	/*-*/ private void onPanelShow() {
+		panelShowBtn.setVisible(false);
+		AnchorPane.setLeftAnchor(rootVideoContainer, 275.0);
+		rootPanelContainer.setVisible(true);
 	}
 	
 	@FXML private void onMirrorRequested() {
@@ -358,7 +403,7 @@ public class InterfaceController implements IController {
 	}
 	
 	// --- Video view --- //
-	@FXML private BorderPane videoContainer;
+	@FXML private BorderPane rootVideoContainer;
 	@FXML private ImageView videoView;
 	
 	// --- About menu --- //

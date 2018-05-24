@@ -22,12 +22,10 @@ import nl.hypothermic.fscviewer.ui.IController;
 public class StageManager {
 	
 	private static Stage xs;
-	private static FoscamViewer main;
 	
-	public static void initialize(FoscamViewer fv, Stage ns, IController controller) {
-		if (xs == null && main == null) {
+	public static void initialize(Stage ns) {
+		if (xs == null) {
 			xs = ns;
-			main = fv;
 		} else {
 			throw new RuntimeException("Invalid attempt to re-initialize StageManager");
 		}
@@ -57,6 +55,26 @@ public class StageManager {
 	// From taskbar to visible
 	public static void deminimize() {
 		xs.setIconified(false);
+	}
+	
+	// Is minimized?
+	public static boolean isMinimized() {
+		return xs.isIconified();
+	}
+	
+	// Set fullscreen
+	public static void fullscreen() {
+		xs.setFullScreen(true);
+	}
+	
+	// From fullscreen to normal
+	public static void defullscreen() {
+		xs.setFullScreen(false);
+	}
+	
+	// Is fullscreen?
+	public static boolean isFullscreen() {
+		return xs.isFullScreen();
 	}
 	
 	private static Boolean isMaximized = false;

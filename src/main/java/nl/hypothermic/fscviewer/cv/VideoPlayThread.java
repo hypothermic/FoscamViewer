@@ -1,10 +1,13 @@
 package nl.hypothermic.fscviewer.cv;
 
+import static org.bytedeco.javacpp.helper.opencv_imgproc.cvFindContours;
+import static org.bytedeco.javacpp.opencv_core.*;
+import static org.bytedeco.javacpp.opencv_imgproc.*;
+
 import java.nio.ByteBuffer;
 import java.nio.ShortBuffer;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
-import java.util.concurrent.ThreadFactory;
 import java.util.concurrent.TimeUnit;
 
 import javax.sound.sampled.AudioFormat;
@@ -13,10 +16,19 @@ import javax.sound.sampled.DataLine;
 import javax.sound.sampled.FloatControl;
 import javax.sound.sampled.SourceDataLine;
 
+import org.bytedeco.javacpp.Loader;
 import org.bytedeco.javacpp.avcodec;
+import org.bytedeco.javacpp.opencv_core.CvBox2D;
+import org.bytedeco.javacpp.opencv_core.CvContour;
+import org.bytedeco.javacpp.opencv_core.CvMemStorage;
+import org.bytedeco.javacpp.opencv_core.CvPoint2D32f;
+import org.bytedeco.javacpp.opencv_core.CvSeq;
+import org.bytedeco.javacpp.opencv_core.CvSize2D32f;
+import org.bytedeco.javacpp.opencv_core.IplImage;
 import org.bytedeco.javacv.FFmpegFrameGrabber;
 import org.bytedeco.javacv.Frame;
 import org.bytedeco.javacv.Java2DFrameConverter;
+import org.bytedeco.javacv.OpenCVFrameConverter;
 
 import javafx.application.Platform;
 import javafx.embed.swing.SwingFXUtils;
@@ -50,8 +62,8 @@ public class VideoPlayThread extends Thread {
 	private ShortBuffer channelSamplesShortBuffer;
 	private ByteBuffer outBuffer;
 	
-	public VideoPlayThread(String MRL, ImageView view, TransmissionProtocol prot, VideoCodec codec) {
-		this.grabber = new FFmpegFrameGrabber(MRL);
+	public VideoPlayThread(FFmpegFrameGrabber grabber, ImageView view, TransmissionProtocol prot, VideoCodec codec) {
+		this.grabber = grabber;
 		this.view = view;
 		this.prot = prot;
 		this.codec = codec;
@@ -82,6 +94,7 @@ public class VideoPlayThread extends Thread {
             soundLine.start();
 
             Java2DFrameConverter converter = new Java2DFrameConverter();
+            
             ExecutorService executor = Executors.newSingleThreadExecutor(InterfaceController.ntfInstance);
             view.setImage(null);
             view.setScaleX(1);

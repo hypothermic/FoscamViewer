@@ -33,7 +33,6 @@ import nl.hypothermic.fscviewer.core.VideoCodec;
 
 public class VideoManager {
 	
-	private final String MRL;
 	private final ImageView view;
 	
 	/** If VideoView is connected to camera and processing video **/
@@ -41,9 +40,9 @@ public class VideoManager {
 	public final VideoPlayThread playThread;
 	
 	public VideoManager(String MRL, TransmissionProtocol prot, VideoCodec codec, ImageView view) {
-		this.MRL = MRL;
 		this.view = view;
-		playThread = new VideoPlayThread(MRL, view, prot, codec);
+		FFmpegFrameGrabber grabber = new FFmpegFrameGrabber(MRL);
+		playThread = new VideoPlayThread(grabber, view, prot, codec);
 	    playThread.start();
 	}
 	

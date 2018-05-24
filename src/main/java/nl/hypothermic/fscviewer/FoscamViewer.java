@@ -44,7 +44,7 @@ public class FoscamViewer extends Application {
 		}
 		FXMLLoader l = new FXMLLoader(getClass().getResource("ui/Interface.fxml"), i18n);
 		ic = new InterfaceController();
-		StageManager.initialize(this, xs, ic);
+		StageManager.initialize(xs);
 		I18N.initialize(i18n);
 		l.setController(ic);
 		Parent root = l.load();
@@ -58,23 +58,6 @@ public class FoscamViewer extends Application {
 			}
 	    });
 	}
-	
-	/*public void restart(Locale loc) throws IOException {
-		ic.disconnectAll();
-		ResourceBundle i18n = ResourceBundle.getBundle("locale.i18n", loc);
-		FXMLLoader l = new FXMLLoader(getClass().getResource("ui/Interface.fxml"), i18n);
-		ic = new InterfaceController();
-		l.setController(ic);
-		Parent root = l.load();
-	    xs.setScene(new Scene(root));
-	    xs.show();
-	    xs.setOnCloseRequest(new EventHandler<WindowEvent>() {
-			@Override
-			public void handle(WindowEvent event) {
-				ic.disconnectAll();
-			}
-	    });
-	}*/
 
 	private Locale prefLang;
 	

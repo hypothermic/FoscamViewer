@@ -239,6 +239,32 @@
     -fx-opacity: 1;
 }
 
+.iface-panel-infoField {
+    -fx-alignment: center;
+    -fx-text-alignment: center;
+    -fx-opacity: 55%;
+}
+
+.iface-panel-flex-showbtn {
+    -fx-opacity: 0.35;
+    -fx-rotate: 90;
+}
+
+.iface-panel-flex-showbtn:hover {
+    -fx-opacity: 1;
+    -fx-rotate: 90;
+}
+
+.iface-panel-flex-hidebtn {
+    -fx-opacity: 0.35;
+    -fx-rotate: 270;
+}
+
+.iface-panel-flex-hidebtn:hover {
+    -fx-opacity: 1;
+    -fx-rotate: 270;
+}
+
 .iface-view-container {
     -fx-background-color: #878787;
 }
