@@ -53,11 +53,13 @@ import nl.hypothermic.fscviewer.core.StageManager;
 import nl.hypothermic.fscviewer.core.TransmissionProtocol;
 import nl.hypothermic.fscviewer.core.VideoCodec;
 import nl.hypothermic.fscviewer.core.XLogger;
+import nl.hypothermic.fscviewer.ui.dynamic.ISingleDialogListener;
+import nl.hypothermic.fscviewer.ui.dynamic.SingleDialog;
 
 /*******************************\
  * > InterfaceController.java  *
  * FoscamViewer by hypothermic *
- * www.github.com/hypothermic  *
+ * www.github.com/hypothermic/ *
  *  See LICENSE.md for legal   *
 \*******************************/
 
@@ -303,7 +305,7 @@ public class InterfaceController implements IController {
 	}
 	
 	/*-*/ private void onConnectSucceeded() {
-		panelTitle.setText(panelTitle.getText() + " " + s.f.getName() + " - " + s.ctrlcl.getHost());
+		panelTitle.setText(I18N.getString("iface.panel.title") + " " + s.f.getName() + " - " + s.ctrlcl.getHost());
 		s.viewcl.connect();
 		connectPane.setVisible(false);
 	}
@@ -402,6 +404,23 @@ public class InterfaceController implements IController {
 		panelShowBtn.setVisible(false);
 		AnchorPane.setLeftAnchor(rootVideoContainer, 275.0);
 		rootPanelContainer.setVisible(true);
+	}
+	
+	@FXML private void onNameChangeRequested() {
+		try {
+			SingleDialog sd = new SingleDialog("Replace", "Replace text according to a regex", "Regex", new ISingleDialogListener() {
+				@Override public void onCancelled() {
+					;
+				}
+				@Override public void onCompleted(String result) {
+					threadpool.execute(() -> s.f.setName(result));
+					threadpool.execute(() -> Platform.runLater(() -> panelTitle.setText(I18N.getString("iface.panel.title") + " " + s.f.getName() + " - " + s.ctrlcl.getHost())));
+				}
+			});
+		} catch (IOException x) {
+			// TODO Auto-generated catch block
+			x.printStackTrace();
+		}
 	}
 	
 	@FXML private void onMirrorRequested() {
