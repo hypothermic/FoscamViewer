@@ -10,149 +10,153 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<!-- This file is part of FoscamViewer by hypothermic -->
+<!-- This file is part of the FoscamViewer project by hypothermic, the project is licensed under the MIT License -->
 
 <AnchorPane fx:id="root" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="620.0" prefWidth="1080.0" styleClass="iface" stylesheets="@css/Interface.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
-   <children>
-      <BorderPane fx:id="rootVideoContainer" layoutX="275.0" layoutY="31.0" prefHeight="588.0" prefWidth="805.0" styleClass="iface-view-container" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="275.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="31.0">
-         <center>
-            <ImageView fx:id="videoView" pickOnBounds="true" preserveRatio="true" styleClass="iface-view-content">
-               <image>
-                  <Image url="@/assets/prog.gif" />
-               </image>
-            </ImageView>
-         </center>
-         <left>
-            <ImageView fx:id="panelShowBtn" fitHeight="35.0" fitWidth="35.0" onMouseClicked="#onPanelShowRequested" opacity="0.9" styleClass="iface-panel-flex-showbtn" visible="false" BorderPane.alignment="CENTER">
-               <image>
-                  <Image url="@/assets/arrow.png" />
-               </image>
-            </ImageView>
-         </left>
-      </BorderPane>
-      <AnchorPane fx:id="rootPanelContainer" layoutY="31.0" maxWidth="275.0" minWidth="275.0" prefHeight="589.0" prefWidth="275.0" styleClass="iface-panel-container" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="31.0">
-         <children>
-            <Label fx:id="panelTitle" alignment="CENTER" layoutX="14.0" layoutY="14.0" prefHeight="15.0" prefWidth="245.0" styleClass="iface-panel-title" text="%iface.panel.title" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="10.0">
-               <font>
-                  <Font size="14.0" />
-               </font>
-            </Label>
-            <Line endX="125.0" fill="WHITE" layoutX="137.0" layoutY="40.0" startX="-125.0" stroke="WHITE" AnchorPane.leftAnchor="11.5" AnchorPane.rightAnchor="12.5" AnchorPane.topAnchor="35.0" />
-            <ToggleButton fx:id="mirrorBtn" alignment="CENTER" disable="true" layoutX="14.0" layoutY="46.0" mnemonicParsing="false" onAction="#onMirrorRequested" prefHeight="25.0" prefWidth="123.0" styleClass="iface-panel-btn" text="%iface.panel.button.mirror" textAlignment="CENTER" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="142.0" AnchorPane.topAnchor="45.0" />
-            <ToggleButton fx:id="flipBtn" alignment="CENTER" disable="true" layoutX="148.0" layoutY="45.0" mnemonicParsing="false" onAction="#onFlipRequested" prefHeight="25.0" prefWidth="123.0" styleClass="iface-panel-btn" text="%iface.panel.button.flip" textAlignment="CENTER" AnchorPane.leftAnchor="142.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="45.0" />
-            <Button fx:id="infraBtn" layoutX="14.0" layoutY="81.0" mnemonicParsing="false" onAction="#onInfraToggleRequested" styleClass="iface-panel-btn" text="..." AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="142.0" AnchorPane.topAnchor="80.0" />
-            <Button fx:id="snapBtn" layoutX="142.0" layoutY="80.0" mnemonicParsing="false" onAction="#onSnapshotRequested" styleClass="iface-panel-btn" text="%iface.panel.button.snapshot" AnchorPane.leftAnchor="142.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="80.0" />
-            <Circle fill="DODGERBLUE" layoutX="72.0" layoutY="179.0" radius="60.0" stroke="BLACK" strokeType="INSIDE" styleClass="iface-panel-ptzctrl" AnchorPane.leftAnchor="12.0" AnchorPane.topAnchor="115.0" />
-            <ImageView fx:id="ptzUpBtn" fitHeight="35.0" fitWidth="35.0" layoutX="54.0" layoutY="116.0" onMouseClicked="#onPtzMoveUp" opacity="0.9" styleClass="iface-panel-ptzctrl-btn" AnchorPane.leftAnchor="54.0" AnchorPane.topAnchor="115.0">
-               <image>
-                  <Image url="@/assets/arrow.png" />
-               </image>
-            </ImageView>
-            <ImageView fx:id="ptzDownBtn" fitHeight="35.0" fitWidth="35.0" layoutX="55.0" layoutY="200.0" onMouseClicked="#onPtzMoveDown" opacity="0.9" style="-fx-rotate: 180;" styleClass="iface-panel-ptzctrl-btn" AnchorPane.leftAnchor="54.0" AnchorPane.topAnchor="200.0">
-               <image>
-                  <Image url="@/assets/arrow.png" />
-               </image>
-            </ImageView>
-            <ImageView fx:id="ptzLeftBtn" fitHeight="35.0" fitWidth="35.0" layoutX="14.0" layoutY="158.0" onMouseClicked="#onPtzMoveLeft" opacity="0.9" style="-fx-rotate: 270;" styleClass="iface-panel-ptzctrl-btn" AnchorPane.leftAnchor="12.0" AnchorPane.topAnchor="158.0">
-               <image>
-                  <Image url="@/assets/arrow.png" />
-               </image>
-            </ImageView>
-            <ImageView fx:id="ptzRightBtn" fitHeight="35.0" fitWidth="35.0" layoutX="97.0" layoutY="158.0" onMouseClicked="#onPtzMoveRight" opacity="0.9" style="-fx-rotate: 90;" styleClass="iface-panel-ptzctrl-btn" AnchorPane.rightAnchor="143.0" AnchorPane.topAnchor="158.0">
-               <image>
-                  <Image url="@/assets/arrow.png" />
-               </image>
-            </ImageView>
-            <Circle fill="WHITE" layoutX="72.0" layoutY="175.0" onMouseClicked="#onPtzResetRequested" radius="8.0" stroke="TRANSPARENT" strokeType="INSIDE" styleClass="iface-panel-ptzctrl-btn" AnchorPane.leftAnchor="63.8" AnchorPane.topAnchor="166.8" />
-            <Label fx:id="infoField" layoutX="12.0" layoutY="568.0" styleClass="iface-panel-infoField" text="RAM: 0%  |  CPU: 0c" AnchorPane.bottomAnchor="6.0" AnchorPane.leftAnchor="12.0" AnchorPane.rightAnchor="12.0" />
-            <ImageView fx:id="panelHideBtn" fitHeight="35.0" fitWidth="35.0" layoutX="256.0" layoutY="277.0" onMouseClicked="#onPanelHideRequested" opacity="0.9" styleClass="iface-panel-flex-hidebtn" AnchorPane.bottomAnchor="277.0" AnchorPane.leftAnchor="240.0" AnchorPane.topAnchor="277.0">
-               <image>
-                  <Image url="@/assets/arrow.png" />
-               </image>
-            </ImageView>
-         </children></AnchorPane>
-      <MenuBar fx:id="menubar" maxHeight="31.0" minWidth="31.0" prefHeight="31.0" prefWidth="940.0" styleClass="iface-menu" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="110.0" AnchorPane.topAnchor="0.0">
-         <menus>
-            <Menu mnemonicParsing="false" text="%iface.menu.file">
-               <items>
-                  <MenuItem mnemonicParsing="false" onAction="#onMaximizeRequested" text="Maximize" />
-                  <MenuItem mnemonicParsing="false" onAction="#onDeMaximizeRequested" text="Minimize" />
-                  <MenuItem mnemonicParsing="false" onAction="#onMinimizeRequested" text="Minimize to taskbar" />
-                  <MenuItem mnemonicParsing="false" onAction="#onExitRequested" text="Exit" />
-               </items>
-            </Menu>
-            <Menu mnemonicParsing="false" text="%iface.menu.edit">
-               <items>
-                  <MenuItem mnemonicParsing="false" text="TODO" />
-               </items>
-            </Menu>
-            <Menu mnemonicParsing="false" text="%iface.menu.about">
-               <items>
-                  <MenuItem mnemonicParsing="false" onAction="#onAboutOpenRequested" text="%iface.menu.about" />
-               </items>
-            </Menu>
-         </menus>
-      </MenuBar>
-      <AnchorPane fx:id="logo" layoutX="751.0" layoutY="23.0" maxHeight="31.0" maxWidth="110.0" minHeight="31.0" minWidth="110.0" prefHeight="31.0" prefWidth="110.0" styleClass="iface-logo-cover" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-         <children>
-            <Label styleClass="iface-logo-text" text="v1.12" textAlignment="RIGHT" textFill="WHITE" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
-               <font>
-                  <Font size="12.0" />
-               </font>
-            </Label>
-            <CheckBox fx:id="btnMinimize" layoutX="51.0" layoutY="7.0" mnemonicParsing="false" onAction="#onMinimizeRequested" styleClass="iface-logo-minbtn" textAlignment="RIGHT" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="31.0" AnchorPane.topAnchor="0.0" />
-            <CheckBox fx:id="btnExit" mnemonicParsing="false" onAction="#onExitRequested" styleClass="iface-logo-exitbtn" textAlignment="RIGHT" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="4.0" AnchorPane.topAnchor="0.0" />
-         </children>
-      </AnchorPane>
-      <AnchorPane fx:id="connectPane" prefHeight="620.0" prefWidth="1080.0" styleClass="iface-connect" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-         <children>
-            <AnchorPane layoutX="441.0" layoutY="167.0" prefHeight="200.0" prefWidth="200.0" styleClass="iface-connect-subground" AnchorPane.bottomAnchor="175.0" AnchorPane.leftAnchor="325.0" AnchorPane.rightAnchor="325.0" AnchorPane.topAnchor="175.0">
-               <children>
-                  <TextFlow layoutX="6.0" layoutY="8.0" prefHeight="39.0" prefWidth="414.0" styleClass="iface-connect-textflow" textAlignment="CENTER" AnchorPane.leftAnchor="6.0" AnchorPane.rightAnchor="6.0" AnchorPane.topAnchor="14.0">
-                     <children>
-                        <Text fx:id="connectTitle" fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="%iface.connect.title" textAlignment="CENTER">
-                           <font>
-                              <Font size="24.0" />
-                           </font>
-                        </Text>
-                     </children>
-                  </TextFlow>
-                  <TextField fx:id="connectAddr" layoutX="16.0" layoutY="69.0" prefHeight="27.0" prefWidth="287.0" promptText="%iface.connect.fields.address" styleClass="iface-connect-field" AnchorPane.leftAnchor="14.0" AnchorPane.rightAnchor="126.0" AnchorPane.topAnchor="67.0" />
-                  <TextField fx:id="connectUser" layoutX="15.0" layoutY="101.0" prefHeight="27.0" prefWidth="186.0" promptText="%iface.connect.fields.username" styleClass="iface-connect-field" AnchorPane.leftAnchor="14.0" AnchorPane.rightAnchor="215.0" AnchorPane.topAnchor="100.0" />
-                  <TextField fx:id="connectPort" layoutX="304.0" layoutY="69.0" prefHeight="27.0" prefWidth="110.0" promptText="%iface.connect.fields.port" styleClass="iface-connect-field" AnchorPane.leftAnchor="304.0" AnchorPane.rightAnchor="15.0" AnchorPane.topAnchor="67.0" />
-                  <PasswordField fx:id="connectPwd" layoutX="243.0" layoutY="102.0" promptText="%iface.connect.fields.password" styleClass="iface-connect-field" AnchorPane.leftAnchor="215.0" AnchorPane.rightAnchor="14.0" AnchorPane.topAnchor="100.0" />
-                  <Button fx:id="connectBtn" layoutX="14.0" layoutY="229.0" mnemonicParsing="false" onAction="#onConnectRequested" prefHeight="25.0" prefWidth="401.0" styleClass="iface-connect-btn" text="%iface.connect.connectbutton" AnchorPane.bottomAnchor="14.0" AnchorPane.leftAnchor="14.0" AnchorPane.rightAnchor="14.0" />
-                  <ProgressBar fx:id="connectBar" layoutX="118.0" layoutY="230.0" maxHeight="25.0" minHeight="25.0" prefHeight="25.0" prefWidth="200.0" progress="0.0" styleClass="iface-connect-bar" visible="false" AnchorPane.bottomAnchor="14.0" AnchorPane.leftAnchor="14.0" AnchorPane.rightAnchor="14.0" />
-                  <ListView fx:id="protocolField" layoutX="17.0" layoutY="136.0" nodeOrientation="LEFT_TO_RIGHT" orientation="HORIZONTAL" prefHeight="27.0" prefWidth="197.0" styleClass="iface-connect-protocol" AnchorPane.leftAnchor="16.0" AnchorPane.rightAnchor="215.0" AnchorPane.topAnchor="135.0" />
-                  <ListView fx:id="codecField" layoutX="216.0" layoutY="136.0" nodeOrientation="LEFT_TO_RIGHT" orientation="HORIZONTAL" prefHeight="27.0" prefWidth="197.0" styleClass="iface-connect-protocol" AnchorPane.leftAnchor="215.0" AnchorPane.rightAnchor="14.0" />
-                  <Label fx:id="errorField" alignment="CENTER" layoutX="14.0" layoutY="54.0" prefHeight="15.0" prefWidth="401.0" text="%iface.connect.error.failed" textAlignment="CENTER" textFill="RED" visible="false" />
-               </children></AnchorPane>
-            <Line endX="200.0" startX="-200.0" stroke="WHITE" AnchorPane.leftAnchor="339.5" AnchorPane.rightAnchor="339.5" AnchorPane.topAnchor="224.5" />
-         </children></AnchorPane>
-      <BorderPane fx:id="aboutMenu" onMouseClicked="#onAboutCloseRequested" prefHeight="200.0" prefWidth="200.0" styleClass="iface-about-container" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-         <center>
-            <AnchorPane maxHeight="140.0" maxWidth="400.0" minHeight="140.0" minWidth="400.0" onMouseClicked="#onAboutCloseRequested" prefHeight="140.0" prefWidth="400.0" styleClass="iface-about-dialog" BorderPane.alignment="CENTER">
-               <children>
-                  <Line endX="100.0" fill="WHITE" layoutX="201.0" layoutY="53.0" startX="-100.0" stroke="WHITE" styleClass="iface-about-splitter" AnchorPane.bottomAnchor="110.0" AnchorPane.leftAnchor="100.0" AnchorPane.rightAnchor="100.0" AnchorPane.topAnchor="37.0" />
-                  <Label alignment="CENTER" contentDisplay="CENTER" layoutX="13.0" layoutY="7.0" prefHeight="29.0" prefWidth="371.0" styleClass="iface-about-title" text="%iface.menu.about.title" textAlignment="CENTER">
-                     <font>
-                        <Font size="16.0" />
-                     </font>
-                  </Label>
-                  <Label alignment="TOP_CENTER" contentDisplay="CENTER" layoutX="13.0" layoutY="47.0" prefHeight="25.0" prefWidth="372.0" styleClass="iface-about-body" text="FoscamViewer by hypothermic, 2018" textAlignment="CENTER" textFill="WHITE" AnchorPane.leftAnchor="15.0" AnchorPane.rightAnchor="15.0" AnchorPane.topAnchor="45.0" />
-                  <Label alignment="TOP_CENTER" contentDisplay="CENTER" layoutX="13.0" layoutY="59.0" prefHeight="25.0" prefWidth="372.0" styleClass="iface-about-body" text="Licensed under the MIT License" textAlignment="CENTER" textFill="WHITE" AnchorPane.leftAnchor="15.0" AnchorPane.rightAnchor="15.0" AnchorPane.topAnchor="62.0" />
-                  <Label alignment="TOP_CENTER" contentDisplay="CENTER" layoutX="15.0" layoutY="90.0" prefHeight="25.0" prefWidth="372.0" styleClass="iface-about-body" text="https://www.github.com/hypothermic" textAlignment="CENTER" textFill="WHITE" AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="15.0" AnchorPane.rightAnchor="15.0">
-                     <font>
-                        <Font size="11.0" />
-                     </font>
-                  </Label>
-                  <Label alignment="TOP_CENTER" contentDisplay="CENTER" layoutX="15.0" layoutY="107.0" prefHeight="25.0" prefWidth="372.0" styleClass="iface-about-body" text="https://www.hypothermic.nl" textAlignment="CENTER" textFill="WHITE" AnchorPane.bottomAnchor="5.0" AnchorPane.leftAnchor="15.0" AnchorPane.rightAnchor="15.0">
-                     <font>
-                        <Font size="11.0" />
-                     </font>
-                  </Label>
-               </children>
-            </AnchorPane>
-         </center></BorderPane>
-   </children>
+	<children>
+		<BorderPane fx:id="rootVideoContainer" layoutX="275.0" layoutY="31.0" prefHeight="588.0" prefWidth="805.0" styleClass="iface-view-container" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="275.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="31.0">
+			<center>
+				<ImageView fx:id="videoView" pickOnBounds="true" preserveRatio="true" styleClass="iface-view-content">
+					<image>
+						<Image url="@/assets/prog.gif" />
+					</image>
+				</ImageView>
+			</center>
+			<left>
+				<ImageView fx:id="panelShowBtn" fitHeight="35.0" fitWidth="35.0" onMouseClicked="#onPanelShowRequested" opacity="0.9" styleClass="iface-panel-flex-showbtn" visible="false" BorderPane.alignment="CENTER">
+					<image>
+						<Image url="@/assets/arrow.png" />
+					</image>
+				</ImageView>
+			</left>
+		</BorderPane>
+		<AnchorPane fx:id="rootPanelContainer" layoutY="31.0" maxWidth="275.0" minWidth="275.0" prefHeight="589.0" prefWidth="275.0" styleClass="iface-panel-container" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="31.0">
+			<children>
+				<Label fx:id="panelTitle" alignment="CENTER" layoutX="14.0" layoutY="14.0" onMouseClicked="#onNameChangeRequested" prefHeight="15.0" prefWidth="245.0" styleClass="iface-panel-title" text="%iface.panel.title" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="10.0">
+					<font>
+						<Font size="12.0" />
+					</font>
+				</Label>
+				<Line endX="125.0" fill="WHITE" layoutX="137.0" layoutY="40.0" startX="-125.0" stroke="WHITE" AnchorPane.leftAnchor="11.5" AnchorPane.rightAnchor="12.5" AnchorPane.topAnchor="35.0" />
+				<ToggleButton fx:id="mirrorBtn" alignment="CENTER" disable="true" layoutX="14.0" layoutY="46.0" mnemonicParsing="false" onAction="#onMirrorRequested" prefHeight="25.0" prefWidth="123.0" styleClass="iface-panel-btn" text="%iface.panel.button.mirror" textAlignment="CENTER" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="142.0" AnchorPane.topAnchor="45.0" />
+				<ToggleButton fx:id="flipBtn" alignment="CENTER" disable="true" layoutX="148.0" layoutY="45.0" mnemonicParsing="false" onAction="#onFlipRequested" prefHeight="25.0" prefWidth="123.0" styleClass="iface-panel-btn" text="%iface.panel.button.flip" textAlignment="CENTER" AnchorPane.leftAnchor="142.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="45.0" />
+				<Button fx:id="infraBtn" layoutX="14.0" layoutY="81.0" mnemonicParsing="false" onAction="#onInfraToggleRequested" styleClass="iface-panel-btn" text="..." AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="142.0" AnchorPane.topAnchor="80.0" />
+				<Button fx:id="snapBtn" layoutX="142.0" layoutY="80.0" mnemonicParsing="false" onAction="#onSnapshotRequested" styleClass="iface-panel-btn" text="%iface.panel.button.snapshot" AnchorPane.leftAnchor="142.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="80.0" />
+				<Circle fill="DODGERBLUE" layoutX="72.0" layoutY="179.0" radius="60.0" stroke="BLACK" strokeType="INSIDE" styleClass="iface-panel-ptzctrl" AnchorPane.leftAnchor="12.0" AnchorPane.topAnchor="115.0" />
+				<ImageView fx:id="ptzUpBtn" fitHeight="35.0" fitWidth="35.0" layoutX="54.0" layoutY="116.0" onMouseClicked="#onPtzMoveUp" opacity="0.9" styleClass="iface-panel-ptzctrl-btn" AnchorPane.leftAnchor="54.0" AnchorPane.topAnchor="115.0">
+					<image>
+						<Image url="@/assets/arrow.png" />
+					</image>
+				</ImageView>
+				<ImageView fx:id="ptzDownBtn" fitHeight="35.0" fitWidth="35.0" layoutX="55.0" layoutY="200.0" onMouseClicked="#onPtzMoveDown" opacity="0.9" style="-fx-rotate: 180;" styleClass="iface-panel-ptzctrl-btn" AnchorPane.leftAnchor="54.0" AnchorPane.topAnchor="200.0">
+					<image>
+						<Image url="@/assets/arrow.png" />
+					</image>
+				</ImageView>
+				<ImageView fx:id="ptzLeftBtn" fitHeight="35.0" fitWidth="35.0" layoutX="14.0" layoutY="158.0" onMouseClicked="#onPtzMoveLeft" opacity="0.9" style="-fx-rotate: 270;" styleClass="iface-panel-ptzctrl-btn" AnchorPane.leftAnchor="12.0" AnchorPane.topAnchor="158.0">
+					<image>
+						<Image url="@/assets/arrow.png" />
+					</image>
+				</ImageView>
+				<ImageView fx:id="ptzRightBtn" fitHeight="35.0" fitWidth="35.0" layoutX="97.0" layoutY="158.0" onMouseClicked="#onPtzMoveRight" opacity="0.9" style="-fx-rotate: 90;" styleClass="iface-panel-ptzctrl-btn" AnchorPane.rightAnchor="143.0" AnchorPane.topAnchor="158.0">
+					<image>
+						<Image url="@/assets/arrow.png" />
+					</image>
+				</ImageView>
+				<Circle fill="WHITE" layoutX="72.0" layoutY="175.0" onMouseClicked="#onPtzResetRequested" radius="8.0" stroke="TRANSPARENT" strokeType="INSIDE" styleClass="iface-panel-ptzctrl-btn" AnchorPane.leftAnchor="63.8" AnchorPane.topAnchor="166.8" />
+				<Label fx:id="infoField" layoutX="12.0" layoutY="568.0" styleClass="iface-panel-infoField" text="RAM: 0%  |  CPU: 0c" AnchorPane.bottomAnchor="6.0" AnchorPane.leftAnchor="12.0" AnchorPane.rightAnchor="12.0" />
+				<ImageView fx:id="panelHideBtn" fitHeight="35.0" fitWidth="35.0" layoutX="256.0" layoutY="277.0" onMouseClicked="#onPanelHideRequested" opacity="0.9" styleClass="iface-panel-flex-hidebtn" AnchorPane.bottomAnchor="277.0" AnchorPane.leftAnchor="240.0" AnchorPane.topAnchor="277.0">
+					<image>
+						<Image url="@/assets/arrow.png" />
+					</image>
+				</ImageView>
+			</children>
+		</AnchorPane>
+		<MenuBar fx:id="menubar" maxHeight="31.0" minWidth="31.0" prefHeight="31.0" prefWidth="940.0" styleClass="iface-menu" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="110.0" AnchorPane.topAnchor="0.0">
+			<menus>
+				<Menu mnemonicParsing="false" text="%iface.menu.file">
+					<items>
+						<MenuItem mnemonicParsing="false" onAction="#onMaximizeRequested" text="Maximize" />
+						<MenuItem mnemonicParsing="false" onAction="#onDeMaximizeRequested" text="Minimize" />
+						<MenuItem mnemonicParsing="false" onAction="#onMinimizeRequested" text="Minimize to taskbar" />
+						<MenuItem mnemonicParsing="false" onAction="#onExitRequested" text="Exit" />
+					</items>
+				</Menu>
+				<Menu mnemonicParsing="false" text="%iface.menu.edit">
+					<items>
+						<MenuItem mnemonicParsing="false" text="TODO" />
+					</items>
+				</Menu>
+				<Menu mnemonicParsing="false" text="%iface.menu.about">
+					<items>
+						<MenuItem mnemonicParsing="false" onAction="#onAboutOpenRequested" text="%iface.menu.about" />
+					</items>
+				</Menu>
+			</menus>
+		</MenuBar>
+		<AnchorPane fx:id="logo" layoutX="751.0" layoutY="23.0" maxHeight="31.0" maxWidth="110.0" minHeight="31.0" minWidth="110.0" prefHeight="31.0" prefWidth="110.0" styleClass="iface-logo-cover" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+			<children>
+				<Label styleClass="iface-logo-text" text="v1.12" textAlignment="RIGHT" textFill="WHITE" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
+					<font>
+						<Font size="12.0" />
+					</font>
+				</Label>
+				<CheckBox fx:id="btnMinimize" layoutX="51.0" layoutY="7.0" mnemonicParsing="false" onAction="#onMinimizeRequested" styleClass="iface-logo-minbtn" textAlignment="RIGHT" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="31.0" AnchorPane.topAnchor="0.0" />
+				<CheckBox fx:id="btnExit" mnemonicParsing="false" onAction="#onExitRequested" styleClass="iface-logo-exitbtn" textAlignment="RIGHT" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="4.0" AnchorPane.topAnchor="0.0" />
+			</children>
+		</AnchorPane>
+		<AnchorPane fx:id="connectPane" prefHeight="620.0" prefWidth="1080.0" styleClass="iface-connect" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+			<children>
+				<AnchorPane layoutX="441.0" layoutY="167.0" prefHeight="200.0" prefWidth="200.0" styleClass="iface-connect-subground" AnchorPane.bottomAnchor="175.0" AnchorPane.leftAnchor="325.0" AnchorPane.rightAnchor="325.0" AnchorPane.topAnchor="175.0">
+					<children>
+						<TextFlow layoutX="6.0" layoutY="8.0" prefHeight="39.0" prefWidth="414.0" styleClass="iface-connect-textflow" textAlignment="CENTER" AnchorPane.leftAnchor="6.0" AnchorPane.rightAnchor="6.0" AnchorPane.topAnchor="14.0">
+							<children>
+								<Text fx:id="connectTitle" fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="%iface.connect.title" textAlignment="CENTER">
+									<font>
+										<Font size="24.0" />
+									</font>
+								</Text>
+							</children>
+						</TextFlow>
+						<TextField fx:id="connectAddr" layoutX="16.0" layoutY="69.0" prefHeight="27.0" prefWidth="287.0" promptText="%iface.connect.fields.address" styleClass="iface-connect-field" AnchorPane.leftAnchor="14.0" AnchorPane.rightAnchor="126.0" AnchorPane.topAnchor="67.0" />
+						<TextField fx:id="connectUser" layoutX="15.0" layoutY="101.0" prefHeight="27.0" prefWidth="186.0" promptText="%iface.connect.fields.username" styleClass="iface-connect-field" AnchorPane.leftAnchor="14.0" AnchorPane.rightAnchor="215.0" AnchorPane.topAnchor="100.0" />
+						<TextField fx:id="connectPort" layoutX="304.0" layoutY="69.0" prefHeight="27.0" prefWidth="110.0" promptText="%iface.connect.fields.port" styleClass="iface-connect-field" AnchorPane.leftAnchor="304.0" AnchorPane.rightAnchor="15.0" AnchorPane.topAnchor="67.0" />
+						<PasswordField fx:id="connectPwd" layoutX="243.0" layoutY="102.0" promptText="%iface.connect.fields.password" styleClass="iface-connect-field" AnchorPane.leftAnchor="215.0" AnchorPane.rightAnchor="14.0" AnchorPane.topAnchor="100.0" />
+						<Button fx:id="connectBtn" layoutX="14.0" layoutY="229.0" mnemonicParsing="false" onAction="#onConnectRequested" prefHeight="25.0" prefWidth="401.0" styleClass="iface-connect-btn" text="%iface.connect.connectbutton" AnchorPane.bottomAnchor="14.0" AnchorPane.leftAnchor="14.0" AnchorPane.rightAnchor="14.0" />
+						<ProgressBar fx:id="connectBar" layoutX="118.0" layoutY="230.0" maxHeight="25.0" minHeight="25.0" prefHeight="25.0" prefWidth="200.0" progress="0.0" styleClass="iface-connect-bar" visible="false" AnchorPane.bottomAnchor="14.0" AnchorPane.leftAnchor="14.0" AnchorPane.rightAnchor="14.0" />
+						<ListView fx:id="protocolField" layoutX="17.0" layoutY="136.0" nodeOrientation="LEFT_TO_RIGHT" orientation="HORIZONTAL" prefHeight="27.0" prefWidth="197.0" styleClass="iface-connect-protocol" AnchorPane.leftAnchor="16.0" AnchorPane.rightAnchor="215.0" AnchorPane.topAnchor="135.0" />
+						<ListView fx:id="codecField" layoutX="216.0" layoutY="136.0" nodeOrientation="LEFT_TO_RIGHT" orientation="HORIZONTAL" prefHeight="27.0" prefWidth="197.0" styleClass="iface-connect-protocol" AnchorPane.leftAnchor="215.0" AnchorPane.rightAnchor="14.0" />
+						<Label fx:id="errorField" alignment="CENTER" layoutX="14.0" layoutY="54.0" prefHeight="15.0" prefWidth="401.0" text="%iface.connect.error.failed" textAlignment="CENTER" textFill="RED" visible="false" />
+					</children>
+				</AnchorPane>
+				<Line endX="200.0" startX="-200.0" stroke="WHITE" AnchorPane.leftAnchor="339.5" AnchorPane.rightAnchor="339.5" AnchorPane.topAnchor="224.5" />
+			</children>
+		</AnchorPane>
+		<BorderPane fx:id="aboutMenu" onMouseClicked="#onAboutCloseRequested" prefHeight="200.0" prefWidth="200.0" styleClass="iface-about-container" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+			<center>
+				<AnchorPane maxHeight="140.0" maxWidth="400.0" minHeight="140.0" minWidth="400.0" onMouseClicked="#onAboutCloseRequested" prefHeight="140.0" prefWidth="400.0" styleClass="iface-about-dialog" BorderPane.alignment="CENTER">
+					<children>
+						<Line endX="100.0" fill="WHITE" layoutX="201.0" layoutY="53.0" startX="-100.0" stroke="WHITE" styleClass="iface-about-splitter" AnchorPane.bottomAnchor="110.0" AnchorPane.leftAnchor="100.0" AnchorPane.rightAnchor="100.0" AnchorPane.topAnchor="37.0" />
+						<Label alignment="CENTER" contentDisplay="CENTER" layoutX="13.0" layoutY="7.0" prefHeight="29.0" prefWidth="371.0" styleClass="iface-about-title" text="%iface.menu.about.title" textAlignment="CENTER">
+							<font>
+								<Font size="16.0" />
+							</font>
+						</Label>
+						<Label alignment="TOP_CENTER" contentDisplay="CENTER" layoutX="13.0" layoutY="47.0" prefHeight="25.0" prefWidth="372.0" styleClass="iface-about-body" text="FoscamViewer by hypothermic, 2018" textAlignment="CENTER" textFill="WHITE" AnchorPane.leftAnchor="15.0" AnchorPane.rightAnchor="15.0" AnchorPane.topAnchor="45.0" />
+						<Label alignment="TOP_CENTER" contentDisplay="CENTER" layoutX="13.0" layoutY="59.0" prefHeight="25.0" prefWidth="372.0" styleClass="iface-about-body" text="Licensed under the MIT License" textAlignment="CENTER" textFill="WHITE" AnchorPane.leftAnchor="15.0" AnchorPane.rightAnchor="15.0" AnchorPane.topAnchor="62.0" />
+						<Label alignment="TOP_CENTER" contentDisplay="CENTER" layoutX="15.0" layoutY="90.0" prefHeight="25.0" prefWidth="372.0" styleClass="iface-about-body" text="https://www.github.com/hypothermic" textAlignment="CENTER" textFill="WHITE" AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="15.0" AnchorPane.rightAnchor="15.0">
+							<font>
+								<Font size="11.0" />
+							</font>
+						</Label>
+						<Label alignment="TOP_CENTER" contentDisplay="CENTER" layoutX="15.0" layoutY="107.0" prefHeight="25.0" prefWidth="372.0" styleClass="iface-about-body" text="https://www.hypothermic.nl" textAlignment="CENTER" textFill="WHITE" AnchorPane.bottomAnchor="5.0" AnchorPane.leftAnchor="15.0" AnchorPane.rightAnchor="15.0">
+							<font>
+								<Font size="11.0" />
+							</font>
+						</Label>
+					</children>
+				</AnchorPane>
+			</center>
+		</BorderPane>
+	</children>
 </AnchorPane>

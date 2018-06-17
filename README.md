@@ -9,6 +9,11 @@ Fast, free and open-source desktop application to view and control your Foscam I
 - Easy to use: no messing around with advanced settings
 
 ## Changelog
+- v1.14
+    - Added drawing feature for the video view
+    - Added JavaDoc comments for important classes
+    - Fixed indentation which was incorrectly refractored.
+
 - v1.12
     - Added video load animation
     - Added PTZ reset button

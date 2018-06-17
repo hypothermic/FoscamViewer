@@ -5,7 +5,7 @@ import java.io.PrintStream;
 /*******************************\
  * > XLogger.java            < *
  * FoscamViewer by hypothermic *
- * www.github.com/hypothermic  *
+ * www.github.com/hypothermic/ *
  *  See LICENSE.md for legal   *
 \*******************************/
 

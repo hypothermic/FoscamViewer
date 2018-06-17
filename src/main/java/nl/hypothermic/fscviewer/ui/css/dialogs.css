@@ -1,0 +1,49 @@
+/******************************\
+ * > dialogs.css            < *
+ * WebDesPro by hypothermic   *
+ * www.github.com/hypothermic *
+ * See LICENSE.txt for legal  *
+\******************************/
+
+/* Global UI properties */
+.flexui {
+    -fx-accent: #ff7700;
+    -fx-focus-color: #ff7700;
+}
+
+/* Dialog properties */
+.dialog-bg {
+    -fx-background-color: rgba(0, 0, 0, 0.45);
+}
+
+.dialog-container {
+    -fx-background-color: rgba(0, 0, 0, 0.5);
+    -fx-border-color: #ff7700;
+    -fx-border-width: 0.6;
+}
+
+.dialog-x-title {
+    -fx-fill: rgba(255, 255, 255, 1);
+}
+
+.dialog-x-splitter {
+    -fx-fill: rgba(255, 199, 0, 0.6);
+}
+
+.dialog-x-subtitle {
+    -fx-fill: rgba(255, 255, 255, 0.75);
+}
+
+.dialog-x-legal {
+    -fx-fill: rgba(255, 255, 255, 0.3);
+}
+
+.dialog-x-field {
+    -fx-background: rgba(255, 255, 255, 0.95);
+}
+
+.dialog-x-button {
+    -fx-background-color: #b7b7b7;
+    -fx-border-color: #ff7700;
+    -fx-border-radius: 0.15em;
+}

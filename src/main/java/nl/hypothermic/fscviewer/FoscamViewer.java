@@ -22,7 +22,7 @@ import nl.hypothermic.fscviewer.ui.InterfaceController;
 /*******************************\
  * > FoscamViewer.java       < *
  * FoscamViewer by hypothermic *
- * www.github.com/hypothermic  *
+ * www.github.com/hypothermic/ *
  *  See LICENSE.md for legal   *
 \*******************************/
 

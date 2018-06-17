@@ -27,15 +27,13 @@ import nl.hypothermic.fscviewer.core.VideoCodec;
 /*******************************\
  * > VideoManager.java       < *
  * FoscamViewer by hypothermic *
- * www.github.com/hypothermic  *
+ * www.github.com/hypothermic/ *
  *  See LICENSE.md for legal   *
 \*******************************/
 
 public class VideoManager {
 	
 	private final ImageView view;
-	
-	/** If VideoView is connected to camera and processing video **/
 	
 	public final VideoPlayThread playThread;
 	

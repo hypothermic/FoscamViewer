@@ -1,12 +1,14 @@
-package nl.hypothermic.fscviewer.ui;
+package nl.hypothermic.fscviewer.ui.dynamic;
 
 /*******************************\
- * > IController.java        < *
+ * > IDynListener.java       < *
  * FoscamViewer by hypothermic *
  * www.github.com/hypothermic/ *
  *  See LICENSE.md for legal   *
 \*******************************/
 
-public interface IController extends javafx.fxml.Initializable {
-	;
+public interface IDynListener {
+
+	public void onCancelled();
+
 }
