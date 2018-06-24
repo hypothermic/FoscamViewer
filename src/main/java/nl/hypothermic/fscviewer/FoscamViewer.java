@@ -59,15 +59,14 @@ public class FoscamViewer extends Application {
 	    });
 	}
 
-	private Locale prefLang;
+	private static Locale prefLang;
 	
 	public static void main(String[] args) {
-		if (args.length == 1 && args[0].isEmpty()) {
-			// TODO: test
+		if (args.length == 1 && !args[0].isEmpty()) {
 			if (args[0].startsWith("lang=")) {
 				if (args[0].length() > 5) {
 					try {
-						Locale.forLanguageTag(args[0].split("=")[1]);
+						prefLang = Locale.forLanguageTag(args[0].split("=")[1]);
 					} catch (Exception x) {
 						log.severe("Argument \"lang=\" is invalid! Ignored.");
 					}
