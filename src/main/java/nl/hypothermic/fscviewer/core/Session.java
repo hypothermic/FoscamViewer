@@ -22,8 +22,8 @@ public class Session {
     public static Foscam f;
     private ImageView videoView;
 
-    public View viewcl = new View();
-    public Controls ctrlcl = new Controls();
+    public final View viewcl = new View();
+    public final Controls ctrlcl = new Controls();
 
     public Session(final String host, final int port, final String user, final String pwd, final ImageView videoView, final TransmissionProtocol prot, final VideoCodec codec) {
     	this.host = host;
@@ -45,6 +45,10 @@ public class Session {
 
     	public void connect() {
     		vp = new VideoManager("rtsp://" + user + ":" + pwd + "@" + host + ":" + port + "/videoMain", prot, codec, videoView);
+    	}
+    	
+    	public void connect(String relativeUrl) {
+    		vp = new VideoManager("rtsp://" + user + ":" + pwd + "@" + host + ":" + port + relativeUrl, prot, codec, videoView);
     	}
 
     	public void disconnect() {

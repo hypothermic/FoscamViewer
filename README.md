@@ -9,6 +9,9 @@ Fast, free and open-source desktop application to view and control your Foscam I
 - Easy to use: no messing around with advanced settings
 
 ## Changelog
+- v1.15
+    - Added camera name change feature
+    - Added dynamic UI elements
 - v1.14
     - Added drawing feature for the video view
     - Added JavaDoc comments for important classes

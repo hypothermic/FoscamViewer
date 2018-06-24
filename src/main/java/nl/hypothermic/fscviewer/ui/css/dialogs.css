@@ -31,7 +31,7 @@
 }
 
 .dialog-x-subtitle {
-    -fx-fill: rgba(255, 255, 255, 0.75);
+    -fx-fill: #cdcdcd;
 }
 
 .dialog-x-legal {

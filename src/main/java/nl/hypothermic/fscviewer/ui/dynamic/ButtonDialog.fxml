@@ -19,11 +19,9 @@
 						<Font size="22.0" />
 					</font>
 				</Text>
-				<Text fx:id="message" fill="#d3d3d3" layoutX="320.0" layoutY="71.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="dialog-x-subtitle" text="This popup was not created correctly :(" textOrigin="CENTER" AnchorPane.bottomAnchor="85.46689453125" AnchorPane.leftAnchor="40.0" AnchorPane.rightAnchor="40.0" AnchorPane.topAnchor="50.0" />
+				<Text fx:id="message" fill="#cdcdcd" layoutX="320.0" layoutY="71.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="dialog-x-subtitle" text="This popup was not created correctly :(" textOrigin="CENTER" AnchorPane.bottomAnchor="85.46689453125" AnchorPane.leftAnchor="40.0" AnchorPane.rightAnchor="40.0" AnchorPane.topAnchor="50.0" />
 				<Line endX="100.0" fill="WHITE" layoutX="201.0" layoutY="56.0" startX="-100.0" stroke="WHITE" styleClass="dialog-x-splitter" AnchorPane.bottomAnchor="103.5" AnchorPane.leftAnchor="100.0" AnchorPane.rightAnchor="100.0" AnchorPane.topAnchor="40.0" />
-				<TextField fx:id="prop" layoutX="15.0" layoutY="101.0" prefHeight="25.0" prefWidth="150.0" styleClass="dialog-x-field" AnchorPane.bottomAnchor="15.0" AnchorPane.leftAnchor="15.0" />
-				<TextField fx:id="val" layoutX="222.0" layoutY="101.0" onAction="#onCloseRequested" prefHeight="25.0" prefWidth="150.0" styleClass="dialog-x-field" AnchorPane.bottomAnchor="15.0" AnchorPane.leftAnchor="180.0" />
-				<Button layoutX="344.0" layoutY="99.0" mnemonicParsing="false" onAction="#onCloseRequested" prefHeight="25.0" prefWidth="42.0" styleClass="dialog-x-button" text="OK" AnchorPane.bottomAnchor="15.0" AnchorPane.rightAnchor="15.0" />
+				<Button fx:id="btn" layoutX="344.0" layoutY="99.0" mnemonicParsing="false" onAction="#onCloseRequested" prefHeight="25.0" prefWidth="42.0" styleClass="dialog-x-button" text="OK" AnchorPane.bottomAnchor="15.0" AnchorPane.leftAnchor="15.0" AnchorPane.rightAnchor="15.0" />
 			</children>
 		</AnchorPane>
 	</center>

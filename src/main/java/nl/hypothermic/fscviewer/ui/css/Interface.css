@@ -11,9 +11,34 @@
     -fx-focus-color: #ff7700;
 }
 
+.global-listview {
+    -fx-background-color: #686868;
+    -fx-border-color: linear-gradient(#ff7700 0.0%, #ef7102 100.0%);
+    -fx-border-width: 1.0px;
+}
+
+.global-listview .list-cell {
+    -fx-background-color: #686868;
+    -fx-border-color: transparent;
+    -fx-border-width: 70.0%;
+    -fx-text-fill: white;
+}
+
+.global-listview .list-cell:filled:selected:focused, 
+.global-listview .list-cell:filled:selected {
+    -fx-text-fill: #ff7700;
+}
+
+.global-listview .list-cell:empty {
+    -fx-background-color: #686868;
+    -fx-border-color: transparent;
+    -fx-border-width: 0.0%;
+    -fx-text-fill: transparent;
+}
+
 /* Login screen (connect) */
 .iface-connect {
-    -fx-background-color: linear-gradient(#5e5e5e 0%, #6e6e6e 100%);
+    -fx-background-color: linear-gradient(#5e5e5e 0.0%, #6e6e6e 100.0%);
     -fx-border-color: #5e5e5e;
 }
 
@@ -28,7 +53,7 @@
 
 .iface-connect-field {
     /*-fx-background-color: #999999;*/
-    -fx-background-color: linear-gradient(#afafaf 0%, #999999 100%);
+    -fx-background-color: linear-gradient(#afafaf 0.0%, #999999 100.0%);
     -fx-background-radius: 0.5em;
     -fx-border-color: #383838;
     -fx-border-radius: 0.5em;
@@ -46,7 +71,7 @@
 }*/
 
 .iface-connect-btn {
-    -fx-background-color: linear-gradient(#afafaf 0%, #999999 100%);
+    -fx-background-color: linear-gradient(#afafaf 0.0%, #999999 100.0%);
     -fx-background-radius: 0.5em;
     -fx-border-color: #383838;
     -fx-border-radius: 0.5em;
@@ -59,7 +84,7 @@
 }
 
 .iface-connect-bar .track {
-    -fx-background-color: linear-gradient(#afafaf 0%, #999999 100%);
+    -fx-background-color: linear-gradient(#afafaf 0.0%, #999999 100.0%);
     -fx-background-radius: 0.5em;
     -fx-border-color: #383838;
     -fx-border-radius: 0.5em;
@@ -95,7 +120,7 @@
 .iface-connect-protocol .scroll-bar:horizontal .decrement-arrow,
 .iface-connect-protocol .scroll-bar:horizontal .increment-button,
 .iface-connect-protocol .scroll-bar:horizontal .decrement-button {
-    -fx-padding:0;
+    -fx-padding:0.0;
 }
 
 /* Menu bar */
@@ -141,8 +166,8 @@
     .iface-menu .context-menu {
         /*-fx-skin: "com.sun.javafx.scene.control.skin.ContextMenuSkin";*/
         -fx-background-color: white;
-        -fx-background-insets: 0, 1, 2;
-        -fx-background-radius: 0 6 6 6, 0 5 5 5, 0 4 4 4;
+        -fx-background-insets: 0.0, 1.0, 2.0;
+        -fx-background-radius: 0.0 6.0 6.0 6.0, 0.0 5.0 5.0 5.0, 0.0 4.0 4.0 4.0;
         /*-fx-padding: 0.333333em 0.083333em 0.666667em 0.083333em;*/
     }
 
@@ -161,8 +186,8 @@
 }
 
 .iface-logo-text {
-    -fx-text-fill: rgba(255, 255, 255, 0.4);
-    -fx-text-align: right;
+    -fx-text-fill: rgba(255.0, 255.0, 255.0, 0.4);
+    -fx-text-alignment: right;
 }
 
 .iface-logo-exitbtn:selected .mark {
@@ -171,9 +196,9 @@
 
 .iface-logo-exitbtn .box {
     -fx-background-color: #5e5e5e;
-    -fx-background-radius: 4em;
+    -fx-background-radius: 4.0em;
     -fx-border-color: #ff1a00;
-    -fx-border-radius: 4em;
+    -fx-border-radius: 4.0em;
 }
 
 .iface-logo-exitbtn:selected .box,
@@ -187,9 +212,9 @@
 
 .iface-logo-minbtn .box {
     -fx-background-color: #5e5e5e;
-    -fx-background-radius: 4em;
+    -fx-background-radius: 4.0em;
     -fx-border-color: #ff4300;
-    -fx-border-radius: 4em;
+    -fx-border-radius: 4.0em;
 }
 
 .iface-logo-minbtn:selected .box,
@@ -206,7 +231,7 @@
 }
 
 .iface-panel-btn {
-    -fx-background-color: linear-gradient(#afafaf 0%, #999999 100%);
+    -fx-background-color: linear-gradient(#afafaf 0.0%, #999999 100.0%);
     -fx-background-radius: 0.5em;
     -fx-border-color: #383838;
     -fx-border-radius: 0.5em;
@@ -218,8 +243,33 @@
     -fx-border-color: #ff7700;
 }
 
+.iface-panel-slider {
+    -fx-control-inner-background: #878787;
+    -fx-padding: 0.0;
+    -fx-border-width: 0.0;
+}
+
+.iface-panel-slider .track {
+    /*-fx-background-color: #595959;*/
+    /*-fx-background-color: #383838;*/
+    -fx-background-color: linear-gradient(#595959 0.0%, #535353 100.0%);
+}
+
+.iface-panel-textfield {
+    -fx-alignment: center;
+    -fx-text-alignment: center;
+    -fx-opacity: 60.0%;
+}
+
+.iface-panel-textfield-error {
+    -fx-alignment: center;
+    -fx-border-color: red;
+    -fx-text-alignment: center;
+    -fx-opacity: 60.0%;
+}
+
 .iface-panel-ptzctrl {
-    -fx-fill: linear-gradient(#afafaf 0%, #999999 100%);
+    -fx-fill: linear-gradient(#afafaf 0.0%, #999999 100.0%);
     -fx-stroke: #383838;
     -fx-shadow-highlight-color: transparent;
 }
@@ -228,41 +278,70 @@
     -fx-opacity: 0.75;
 }
 
-.iface-panel-slider {
-    -fx-control-inner-background: #878787;
-    -fx-padding: 0;
-    -fx-border-width: 0;
-    -fx-border-size: 0;
-}
-
 .iface-panel-ptzctrl-btn:hover {
-    -fx-opacity: 1;
+    -fx-opacity: 1.0;
 }
 
 .iface-panel-infoField {
     -fx-alignment: center;
     -fx-text-alignment: center;
-    -fx-opacity: 55%;
+    -fx-opacity: 55.0%;
+}
+
+.iface-panel-accord {
+    -fx-box-border: transparent;
+}
+
+.iface-panel-accord-pane > .title {
+    -fx-background-color: linear-gradient(#afafaf 0.0%, #999999 100.0%);
+    -fx-opacity: 35.0%;
+}
+
+/*.iface-panel-accord-pane > * > * > * > AnchorPane {
+    -fx-padding: 0px;
+}*/
+
+.iface-panel-accord-pane > .title > .arrow-button,
+.iface-panel-accord-pane > .title > .arrow-button > .arrow,
+.iface-panel-accord-pane:selected > .title > .arrow-button,
+.iface-panel-accord-pane:selected > .title > .arrow-button > .arrow {
+    -fx-effect: null;
+    -fx-border-color: transparent;
+}
+
+.iface-panel-accord-pane > .content {
+    -fx-background-color: linear-gradient(#595959 0.0%, #535353 100.0%);
+    -fx-opacity: 40.0%;
+}
+
+.iface-panel-accord-pane:expanded > .title,
+.iface-panel-accord-pane:hover > .title {
+    -fx-opacity: 100.0%;
+}
+
+.iface-panel-accord-pane:expanded > *.content,
+.iface-panel-accord-pane:hover > *.content {
+    -fx-opacity: 100.0%;
 }
 
 .iface-panel-flex-showbtn {
     -fx-opacity: 0.35;
-    -fx-rotate: 90;
+    -fx-rotate: 90.0;
 }
 
 .iface-panel-flex-showbtn:hover {
-    -fx-opacity: 1;
-    -fx-rotate: 90;
+    -fx-opacity: 1.0;
+    -fx-rotate: 90.0;
 }
 
 .iface-panel-flex-hidebtn {
     -fx-opacity: 0.35;
-    -fx-rotate: 270;
+    -fx-rotate: 270.0;
 }
 
 .iface-panel-flex-hidebtn:hover {
-    -fx-opacity: 1;
-    -fx-rotate: 270;
+    -fx-opacity: 1.0;
+    -fx-rotate: 270.0;
 }
 
 .iface-view-container {
@@ -270,30 +349,28 @@
 }
 
 .iface-view-content {
-    -fx-border-radius: 0em;
+    -fx-border-radius: 0.0em;
 }
 
 .iface-about-container {
-    -fx-background-color: linear-gradient(rgba(0, 0, 0, 0.45) 0%, rgba(0, 0, 0, 0.35) 100%);
-    -fx-background-opacity: 25%;
+    -fx-background-color: linear-gradient(rgba(0.0, 0.0, 0.0, 0.45) 0.0%, rgba(0.0, 0.0, 0.0, 0.35) 100.0%);
 }
 
 .iface-about-dialog {
-    -fx-background-color: linear-gradient(rgba(0, 0, 0, 0.65) 0%, rgba(0, 0, 0, 0.75) 100%);
-    -fx-background-opacity: 20%;
+    -fx-background-color: linear-gradient(rgba(0.0, 0.0, 0.0, 0.65) 0.0%, rgba(0.0, 0.0, 0.0, 0.75) 100.0%);
     -fx-border-style: solid;
     -fx-border-color: #ff7700;
     -fx-border-radius: 0.05em;
 }
 
 .iface-about-title {
-    -fx-text-fill: rgba(255, 255, 255, 1);
+    -fx-text-fill: rgba(255.0, 255.0, 255.0, 1.0);
 }
 
 .iface-about-splitter {
-    -fx-fill: rgba(255, 199, 0, 0.6);
+    -fx-fill: rgba(255.0, 199.0, 0.0, 0.6);
 }
 
 .iface-about-body {
-    -fx-text-fill: rgba(255, 255, 255, 0.75);
+    -fx-text-fill: rgba(255.0, 255.0, 255.0, 0.75);
 }

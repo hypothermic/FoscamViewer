@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.*?>
+<?import javafx.scene.effect.*?>
 <?import javafx.scene.chart.*?>
 <?import javafx.scene.shape.*?>
 <?import javafx.scene.text.*?>
@@ -10,7 +12,8 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<!-- This file is part of the FoscamViewer project by hypothermic, the project is licensed under the MIT License -->
+<!-- This file is part of the FoscamViewer project by hypothermic, the project 
+	is licensed under the MIT License -->
 
 <AnchorPane fx:id="root" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="620.0" prefWidth="1080.0" styleClass="iface" stylesheets="@css/Interface.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
 	<children>
@@ -64,12 +67,105 @@
 					</image>
 				</ImageView>
 				<Circle fill="WHITE" layoutX="72.0" layoutY="175.0" onMouseClicked="#onPtzResetRequested" radius="8.0" stroke="TRANSPARENT" strokeType="INSIDE" styleClass="iface-panel-ptzctrl-btn" AnchorPane.leftAnchor="63.8" AnchorPane.topAnchor="166.8" />
-				<Label fx:id="infoField" layoutX="12.0" layoutY="568.0" styleClass="iface-panel-infoField" text="RAM: 0%  |  CPU: 0c" AnchorPane.bottomAnchor="6.0" AnchorPane.leftAnchor="12.0" AnchorPane.rightAnchor="12.0" />
-				<ImageView fx:id="panelHideBtn" fitHeight="35.0" fitWidth="35.0" layoutX="256.0" layoutY="277.0" onMouseClicked="#onPanelHideRequested" opacity="0.9" styleClass="iface-panel-flex-hidebtn" AnchorPane.bottomAnchor="277.0" AnchorPane.leftAnchor="240.0" AnchorPane.topAnchor="277.0">
+				<ImageView fx:id="panelHideBtn" fitHeight="35.0" fitWidth="35.0" layoutX="256.0" layoutY="277.0" onMouseClicked="#onPanelHideRequested" opacity="0.9" styleClass="iface-panel-flex-hidebtn" AnchorPane.bottomAnchor="277.0" AnchorPane.rightAnchor="-35.0" AnchorPane.topAnchor="277.0">
 					<image>
 						<Image url="@/assets/arrow.png" />
 					</image>
 				</ImageView>
+				<Slider fx:id="sliderBrightness" blockIncrement="1.0" disable="true" layoutX="142.0" layoutY="115.0" prefHeight="16.0" prefWidth="123.0" styleClass="iface-panel-slider" AnchorPane.leftAnchor="142.0" AnchorPane.rightAnchor="45.0" AnchorPane.topAnchor="115.0" />
+				<Slider fx:id="sliderContrast" blockIncrement="1.0" disable="true" layoutX="142.0" layoutY="147.0" prefHeight="16.0" prefWidth="123.0" styleClass="iface-panel-slider" AnchorPane.leftAnchor="142.0" AnchorPane.rightAnchor="45.0" AnchorPane.topAnchor="141.0" />
+				<Slider fx:id="sliderHue" blockIncrement="1.0" disable="true" layoutX="142.0" layoutY="167.0" prefHeight="16.0" prefWidth="123.0" styleClass="iface-panel-slider" AnchorPane.leftAnchor="142.0" AnchorPane.rightAnchor="45.0" AnchorPane.topAnchor="167.0" />
+				<Slider fx:id="sliderSharpness" blockIncrement="1.0" disable="true" layoutX="142.0" layoutY="218.0" prefHeight="16.0" prefWidth="123.0" styleClass="iface-panel-slider" AnchorPane.leftAnchor="142.0" AnchorPane.rightAnchor="45.0" AnchorPane.topAnchor="219.0" />
+				<Slider fx:id="sliderSaturation" blockIncrement="1.0" disable="true" layoutX="142.0" layoutY="192.0" prefHeight="16.0" prefWidth="123.0" styleClass="iface-panel-slider" AnchorPane.leftAnchor="142.0" AnchorPane.rightAnchor="45.0" AnchorPane.topAnchor="193.0" />
+				<TextField fx:id="sliderFieldBrightness" disable="true" layoutX="234.0" layoutY="113.0" minHeight="20.0" minWidth="35.0" prefHeight="20.0" prefWidth="35.0" styleClass="iface-panel-textfield" AnchorPane.leftAnchor="230.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="113.0" />
+				<TextField fx:id="sliderFieldContrast" disable="true" layoutX="230.0" layoutY="139.0" minHeight="20.0" minWidth="35.0" prefHeight="20.0" prefWidth="35.0" styleClass="iface-panel-textfield" AnchorPane.leftAnchor="230.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="139.0" />
+				<TextField fx:id="sliderFieldHue" disable="true" layoutX="230.0" layoutY="165.0" minHeight="20.0" minWidth="35.0" prefHeight="20.0" prefWidth="35.0" styleClass="iface-panel-textfield" AnchorPane.leftAnchor="230.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="165.0" />
+				<TextField fx:id="sliderFieldSaturation" disable="true" layoutX="230.0" layoutY="191.0" minHeight="20.0" minWidth="35.0" prefHeight="20.0" prefWidth="35.0" styleClass="iface-panel-textfield" AnchorPane.leftAnchor="230.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="191.0" />
+				<TextField fx:id="sliderFieldSharpness" disable="true" layoutX="230.0" layoutY="217.0" minHeight="20.0" minWidth="35.0" prefHeight="20.0" prefWidth="35.0" styleClass="iface-panel-textfield" AnchorPane.leftAnchor="230.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="217.0" />
+				<Accordion fx:id="panelAccordion" layoutX="-1.0" layoutY="462.0" minHeight="-Infinity" minWidth="-Infinity" nodeOrientation="LEFT_TO_RIGHT" prefHeight="104.0" prefWidth="275.0" styleClass="iface-panel-accord" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="265.0">
+					<panes>
+						<TitledPane animated="false" styleClass="iface-panel-accord-pane" text="%iface.panel.accord.accounts">
+							<content>
+								<AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="196.0" prefWidth="273.0" style="-fx-padding: 0px;" translateX="1.0" translateY="1.0" translateZ="1.0">
+									<children>
+										<ListView fx:id="accountsList" layoutX="6.0" layoutY="-2.0" prefHeight="96.0" prefWidth="120.0" styleClass="global-listview" AnchorPane.bottomAnchor="5.0" AnchorPane.leftAnchor="4.0" AnchorPane.rightAnchor="163.0" AnchorPane.topAnchor="4.0" />
+										<Accordion fx:id="accountsAccord" layoutX="150.0" layoutY="15.4" minWidth="25.0" prefHeight="172.0" prefWidth="123.0" styleClass="iface-panel-accord" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="115.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+											<panes>
+												<TitledPane animated="false" styleClass="iface-panel-accord-pane" text="%iface.panel.accord.accounts.add">
+													<content>
+														<AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" style="-fx-padding: 0px;">
+															<children>
+																<TextField fx:id="accountsAddUsername" layoutX="-7.0" layoutY="2.0" promptText="%iface.connect.fields.username" styleClass="iface-panel-textfield" AnchorPane.leftAnchor="4.0" AnchorPane.rightAnchor="4.0" AnchorPane.topAnchor="4.0">
+																	<font>
+																		<Font size="12.0" />
+																	</font>
+																</TextField>
+																<PasswordField fx:id="accountsAddPassword" layoutX="14.0" layoutY="14.0" promptText="%iface.connect.fields.password" styleClass="iface-panel-textfield" AnchorPane.leftAnchor="4.0" AnchorPane.rightAnchor="4.0" AnchorPane.topAnchor="30.0">
+																	<font>
+																		<Font size="12.0" />
+																	</font>
+																</PasswordField>
+																<ChoiceBox fx:id="accountsAddPrivilege" layoutX="3.0" layoutY="52.0" prefWidth="150.0" styleClass="iface-panel-textfield" AnchorPane.leftAnchor="4.0" AnchorPane.rightAnchor="4.0" AnchorPane.topAnchor="56.0" />
+																<Button fx:id="accountsAddBtn" alignment="CENTER" contentDisplay="CENTER" layoutX="47.0" layoutY="94.0" mnemonicParsing="false" onAction="#onAccountAddRequested" styleClass="iface-panel-btn" text="%iface.panel.accord.accounts.add.addbutton" textAlignment="CENTER" AnchorPane.bottomAnchor="6.0" AnchorPane.leftAnchor="4.0" AnchorPane.rightAnchor="4.0" />
+															</children>
+														</AnchorPane>
+													</content>
+												</TitledPane>
+												<TitledPane animated="false" styleClass="iface-panel-accord-pane" text="%iface.panel.accord.accounts.details">
+													<content>
+														<AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" style="-fx-padding: 0px;">
+                                             <children>
+                                                <Label fx:id="accountsDetailsMsg" alignment="CENTER" contentDisplay="CENTER" layoutX="60.0" layoutY="65.0" text="%iface.panel.accord.accounts.details.noselect" textAlignment="CENTER" textFill="#ff7700" wrapText="true" AnchorPane.bottomAnchor="5.0" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="5.0" />
+                                                <Button fx:id="accountsDetailsDelete" alignment="CENTER" contentDisplay="CENTER" layoutX="5.0" layoutY="2.0" minHeight="23.0" mnemonicParsing="false" onAction="#onAccountDetailsDelete" prefHeight="23.0" styleClass="iface-panel-btn" text="%iface.panel.accord.accounts.details.delete" textAlignment="CENTER" visible="false" wrapText="true" AnchorPane.bottomAnchor="5.0" AnchorPane.leftAnchor="80.0" AnchorPane.rightAnchor="2.0">
+                                                   <font>
+                                                      <Font size="10.0" />
+                                                   </font>
+                                                </Button>
+                                                <Button fx:id="accountsDetailsPassword" alignment="CENTER" contentDisplay="CENTER" layoutX="88.0" layoutY="16.0" minHeight="23.0" mnemonicParsing="false" onAction="#onAccountDetailsChangePassword" prefHeight="23.0" styleClass="iface-panel-btn" text="%iface.panel.accord.accounts.details.password" textAlignment="CENTER" visible="false" wrapText="true" AnchorPane.bottomAnchor="5.0" AnchorPane.leftAnchor="2.0" AnchorPane.rightAnchor="80.0">
+                                                   <font>
+                                                      <Font size="10.0" />
+                                                   </font>
+                                                </Button>
+                                                <Label fx:id="accountsDetailsTitle" alignment="CENTER" contentDisplay="CENTER" layoutX="58.0" layoutY="7.0" textAlignment="CENTER" textFill="WHITE" underline="true" visible="false" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="5.0" />
+                                                <Label fx:id="accountsDetailsPriv" alignment="CENTER" contentDisplay="CENTER" layoutX="58.0" layoutY="30.0" text=" " textAlignment="CENTER" textFill="#bfbfbf" visible="false" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="25.0">
+                                                   <font>
+                                                      <Font size="12.0" />
+                                                   </font>
+                                                </Label>
+                                             </children></AnchorPane>
+													</content>
+												</TitledPane>
+											</panes>
+										</Accordion>
+									</children>
+								</AnchorPane>
+							</content>
+						</TitledPane>
+						<TitledPane animated="false" styleClass="iface-panel-accord-pane" text="%iface.panel.accord.network">
+							<content>
+								<AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" style="-fx-padding: 0px;" />
+							</content>
+						</TitledPane>
+                  <TitledPane animated="false" layoutX="10.0" layoutY="35.0" styleClass="iface-panel-accord-pane" text="%iface.panel.accord.wireless">
+                     <content>
+                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" style="-fx-padding: 0px;" />
+                     </content>
+                  </TitledPane>
+						<TitledPane animated="false" layoutX="10.0" layoutY="35.0" styleClass="iface-panel-accord-pane" text="%iface.panel.accord.storage">
+							<content>
+								<AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" style="-fx-padding: 0px;" />
+							</content>
+						</TitledPane>
+						<TitledPane animated="false" styleClass="iface-panel-accord-pane" text="%iface.panel.accord.utility">
+							<content>
+								<AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" style="-fx-padding: 0px;">
+                           <children>
+                  				<Label fx:id="infoField" styleClass="iface-panel-infoField" text="RAM: 0%  |  CPU: 0c" AnchorPane.bottomAnchor="6.0" AnchorPane.leftAnchor="12.0" AnchorPane.rightAnchor="12.0" />
+                           </children></AnchorPane>
+							</content>
+						</TitledPane>
+					</panes>
+				</Accordion>
 			</children>
 		</AnchorPane>
 		<MenuBar fx:id="menubar" maxHeight="31.0" minWidth="31.0" prefHeight="31.0" prefWidth="940.0" styleClass="iface-menu" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="110.0" AnchorPane.topAnchor="0.0">
@@ -158,5 +254,16 @@
 				</AnchorPane>
 			</center>
 		</BorderPane>
+		<MenuBar fx:id="videoFloater" layoutX="500.0" maxHeight="31.0" minHeight="31.0" minWidth="50.0" prefHeight="31.0" styleClass="iface-menu" visible="false" AnchorPane.bottomAnchor="10.0" AnchorPane.rightAnchor="10.0">
+			<menus>
+				<Menu mnemonicParsing="false" text="%iface.floater.stream">
+					<items>
+						<MenuItem mnemonicParsing="false" onAction="#onMainStreamRequested" text="%iface.floater.stream.primary" />
+						<MenuItem mnemonicParsing="false" onAction="#onSubStreamRequested" text="%iface.floater.stream.secondary" />
+						<MenuItem mnemonicParsing="false" onAction="#onAudioStreamRequested" text="%iface.floater.stream.audio" />
+					</items>
+				</Menu>
+			</menus>
+		</MenuBar>
 	</children>
 </AnchorPane>
