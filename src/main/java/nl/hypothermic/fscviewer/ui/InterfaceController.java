@@ -7,7 +7,6 @@ import java.io.PrintStream;
 import java.net.URL;
 import java.text.DateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 import java.util.ResourceBundle;
@@ -15,6 +14,7 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ThreadFactory;
 import java.util.concurrent.atomic.AtomicInteger;
+import java.util.function.UnaryOperator;
 
 import javax.imageio.ImageIO;
 
@@ -43,6 +43,8 @@ import javafx.scene.control.MenuBar;
 import javafx.scene.control.ProgressBar;
 import javafx.scene.control.Slider;
 import javafx.scene.control.TextField;
+import javafx.scene.control.TextFormatter;
+import javafx.scene.control.TextFormatter.Change;
 import javafx.scene.control.TitledPane;
 import javafx.scene.control.ToggleButton;
 import javafx.scene.control.Tooltip;
@@ -59,13 +61,16 @@ import javafx.util.Callback;
 import javafx.util.Duration;
 import nl.hypothermic.foscamlib.containers.Account.Privilege;
 import nl.hypothermic.foscamlib.containers.Credentials;
+import nl.hypothermic.foscamlib.containers.IPConfig;
 import nl.hypothermic.fscviewer.core.I18N;
 import nl.hypothermic.fscviewer.core.Session;
 import nl.hypothermic.fscviewer.core.StageManager;
 import nl.hypothermic.fscviewer.core.TransmissionProtocol;
 import nl.hypothermic.fscviewer.core.VideoCodec;
 import nl.hypothermic.fscviewer.core.XLogger;
+import nl.hypothermic.fscviewer.ui.dynamic.ChoiceDialog;
 import nl.hypothermic.fscviewer.ui.dynamic.DoubleDialog;
+import nl.hypothermic.fscviewer.ui.dynamic.IChoiceDialogListener;
 import nl.hypothermic.fscviewer.ui.dynamic.IDoubleDialogListener;
 import nl.hypothermic.fscviewer.ui.dynamic.ISingleDialogListener;
 import nl.hypothermic.fscviewer.ui.dynamic.SingleDialog;
@@ -284,6 +289,7 @@ public class InterfaceController implements IController {
 					Session.f.closeInfraLed();
 					onPanelInit();
 					onAccountsInit();
+					onNetworkInit();
 				} catch (Exception e) {
 					Platform.runLater(new Runnable() {
 						@Override public void run() {
@@ -655,6 +661,13 @@ public class InterfaceController implements IController {
 	@FXML private Label accountsDetailsMsg;
 	@FXML private Button accountsDetailsPassword; // I chose to name it "Password" since "Change password" didn't fit on the button .-.
 	@FXML private Button accountsDetailsDelete;
+	
+	@FXML private ToggleButton networkDhcpBtn;
+	@FXML private TextField networkIpField;
+	@FXML private TextField networkGatewayField;
+	@FXML private TextField networkMaskField;
+	@FXML private TextField networkDns1Field;
+	@FXML private TextField networkDns2Field;
 
 	/*-*/ private void onAccountsInit() {
 		accountsAccord.expandedPaneProperty().addListener(new ChangeListener<TitledPane>() {
@@ -766,6 +779,50 @@ public class InterfaceController implements IController {
 		threadpool.execute(() -> {
 			Session.f.deleteAccount((String) accountsList.getSelectionModel().getSelectedItem());
 			accountsRefresh();
+		});
+	}
+	
+	/*-*/ private void onNetworkInit() {
+		IPConfig cfg = Session.f.getIPConfig();
+		networkDhcpBtn.setSelected(cfg.isDHCP);
+		networkDhcpBtn.setText(cfg.isDHCP ? I18N.getString("iface.panel.accord.network.dhcp.enabled") : I18N.getString("iface.panel.accord.network.dhcp.disabled"));
+        final UnaryOperator<Change> ipAddressFilter = c -> {
+            return (c.getControlNewText().matches(JfxUtil.makePartialIPRegex()) ? c : null);
+        };
+        networkIpField.setTextFormatter(new TextFormatter(ipAddressFilter));
+        networkIpField.setText(cfg.ip);
+        networkIpField.setTooltip(new Tooltip(I18N.getString("iface.panel.accord.network.ip")));
+        networkGatewayField.setTextFormatter(new TextFormatter(ipAddressFilter));
+        networkGatewayField.setText(cfg.gate);
+        networkGatewayField.setTooltip(new Tooltip(I18N.getString("iface.panel.accord.network.gateway")));
+        networkMaskField.setTextFormatter(new TextFormatter(ipAddressFilter));
+        networkMaskField.setText(cfg.mask);
+        networkMaskField.setTooltip(new Tooltip(I18N.getString("iface.panel.accord.network.subnetmask")));
+        networkDns1Field.setTextFormatter(new TextFormatter(ipAddressFilter));
+        networkDns1Field.setText(cfg.dns1);
+        networkDns1Field.setTooltip(new Tooltip(I18N.getString("iface.panel.accord.network.dns1")));
+        networkDns2Field.setTextFormatter(new TextFormatter(ipAddressFilter));
+        networkDns2Field.setText(cfg.dns2);
+        networkDns2Field.setTooltip(new Tooltip(I18N.getString("iface.panel.accord.network.dns2")));
+	}
+	
+	@FXML private void onDhcpToggleRequested() throws IOException {
+		ChoiceDialog cd = new ChoiceDialog("Warning", "Changing DHCP status will reboot the device!", "Cancel", "Continue", new IChoiceDialogListener() {
+			@Override public void onCancelled() {
+				boolean isDhcpEnabled = Session.f.getIPConfig().isDHCP;
+				networkDhcpBtn.setText(isDhcpEnabled ? I18N.getString("iface.panel.accord.network.dhcp.enabled") : I18N.getString("iface.panel.accord.network.dhcp.disabled"));
+				networkDhcpBtn.setSelected(isDhcpEnabled);
+			}
+			@Override public void onAgreed() {
+				networkDhcpBtn.setDisable(true);
+				IPConfig oldcfg = Session.f.getIPConfig();
+				oldcfg.isDHCP = !oldcfg.isDHCP;
+				Session.f.setIPConfig(oldcfg);
+				boolean isDhcpEnabled = Session.f.getIPConfig().isDHCP;
+				networkDhcpBtn.setText(isDhcpEnabled ? I18N.getString("iface.panel.accord.network.dhcp.enabled") : I18N.getString("iface.panel.accord.network.dhcp.disabled"));
+				networkDhcpBtn.setSelected(isDhcpEnabled);
+				networkDhcpBtn.setDisable(false);
+			}
 		});
 	}
 
