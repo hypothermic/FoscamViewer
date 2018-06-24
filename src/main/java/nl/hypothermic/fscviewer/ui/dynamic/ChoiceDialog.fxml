@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.effect.*?>
+<?import javafx.scene.shape.*?>
+<?import javafx.scene.web.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.scene.control.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+
+<!-- This file is part of the FoscamViewer project by hypothermic, the project is licensed under the MIT License -->
+
+<BorderPane fx:id="background" layoutX="10.0" layoutY="10.0" onMouseClicked="#onLeftRequested" prefHeight="200.0" prefWidth="200.0" styleClass="dialog-bg" stylesheets="@../css/dialogs.css" visible="true" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+	<center>
+		<AnchorPane maxHeight="140.0" maxWidth="400.0" minHeight="140.0" minWidth="400.0" prefHeight="140.0" prefWidth="400.0" styleClass="dialog-container" BorderPane.alignment="CENTER">
+			<children>
+				<Text fx:id="title" layoutX="137.6" layoutY="48.6" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="dialog-x-title" text="Information" textAlignment="CENTER" AnchorPane.bottomAnchor="106.2115234375" AnchorPane.leftAnchor="137.0" AnchorPane.rightAnchor="137.0" AnchorPane.topAnchor="12.5">
+					<font>
+						<Font size="22.0" />
+					</font>
+				</Text>
+				<Text fx:id="message" fill="#cdcdcd" layoutX="320.0" layoutY="71.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="dialog-x-subtitle" text="This popup was not created correctly :(" textOrigin="CENTER" AnchorPane.bottomAnchor="85.46689453125" AnchorPane.leftAnchor="40.0" AnchorPane.rightAnchor="40.0" AnchorPane.topAnchor="50.0" />
+				<Line endX="100.0" fill="WHITE" layoutX="201.0" layoutY="56.0" startX="-100.0" stroke="WHITE" styleClass="dialog-x-splitter" AnchorPane.bottomAnchor="103.5" AnchorPane.leftAnchor="100.0" AnchorPane.rightAnchor="100.0" AnchorPane.topAnchor="40.0" />
+				<Button fx:id="rightBtn" layoutX="344.0" layoutY="99.0" mnemonicParsing="false" onAction="#onRightRequested" prefHeight="27.0" prefWidth="165.0" styleClass="dialog-x-button" text="OK" AnchorPane.bottomAnchor="16.0" AnchorPane.leftAnchor="208.0" AnchorPane.rightAnchor="16.0" />
+            <Button fx:id="leftBtn" layoutX="18.0" layoutY="96.0" mnemonicParsing="false" onAction="#onLeftRequested" prefHeight="27.0" prefWidth="165.0" styleClass="dialog-x-button" text="OK" AnchorPane.bottomAnchor="16.0" AnchorPane.leftAnchor="16.0" AnchorPane.rightAnchor="208.0" />
+			</children>
+		</AnchorPane>
+	</center>
+</BorderPane>
