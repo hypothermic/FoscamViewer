@@ -3,12 +3,21 @@ Fast, free and open-source desktop application to view and control your Foscam I
 
 ![FoscamViewer screenshot sample](sample.png)
 
+[Download](https://github.com/hypothermic/FoscamViewer/releases/latest)
+
 ## Features
 - Most Foscam IP cameras are supported
 - Slick and responsive design
 - Easy to use: no messing around with advanced settings
 
 ## Changelog
+- v1.16
+    - Added settings accordion
+        - Accounts tab finished
+        - Networking tab finished (read-only)
+    - Added video color sliders
+    - Added stream selection menu
+    - Fixed language support via args
 - v1.15
     - Added camera name change feature
     - Added dynamic UI elements
