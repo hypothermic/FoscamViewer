@@ -93,7 +93,7 @@ public class ChoiceDialog implements Initializable {
 				leftBtn.requestFocus();
 			}
 		});
-		rightBtn.setText(leftMsg);
+		rightBtn.setText(rightMsg);
 		rightBtn.setFocusTraversable(false);
 	}
 }
