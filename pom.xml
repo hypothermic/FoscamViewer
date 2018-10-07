@@ -4,7 +4,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>nl.hypothermic</groupId>
 	<artifactId>fscviewer</artifactId>
-	<version>1.16-RELEASE</version>
+	<version>1.17-RELEASE</version>
 	<name>FoscamViewer</name>
 	<inceptionYear>2018</inceptionYear>
 

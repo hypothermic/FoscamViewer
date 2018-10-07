@@ -12,6 +12,8 @@ Fast, free and open-source desktop application to view and control your Foscam I
 - Multiple languages supported (please help translating!)
 
 ## Changelog
+- v1.17
+    - Fixed a bug where the login screen would not disappear
 - v1.16
     - Added settings accordion
         - Accounts tab finished
