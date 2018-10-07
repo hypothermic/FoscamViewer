@@ -27,12 +27,13 @@ import javafx.animation.Timeline;
 import javafx.application.Platform;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
+import javafx.collections.FXCollections;
 import javafx.embed.swing.SwingFXUtils;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
-import javafx.scene.Node;
 import javafx.scene.SnapshotParameters;
 import javafx.scene.SnapshotResult;
+import javafx.scene.chart.PieChart;
 import javafx.scene.control.Accordion;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
@@ -148,10 +149,14 @@ public class InterfaceController implements IController {
 		codecField.getItems().clear();
 		codecField.getItems().addAll("Auto", "H264", "MPEG");
 		codecField.getSelectionModel().select(0);
-		connectAddr.setText(System.getenv("fscviewer.cam_addr"));
-		connectPort.setText(System.getenv("fscviewer.cam_port"));
-		connectUser.setText(System.getenv("fscviewer.cam_username"));
-		connectPwd.setText(System.getenv("fscviewer.cam_password"));
+		try {
+			connectAddr.setText(System.getenv("fscviewer.cam_addr"));
+			connectPort.setText(System.getenv("fscviewer.cam_port"));
+			connectUser.setText(System.getenv("fscviewer.cam_username"));
+			connectPwd.setText(System.getenv("fscviewer.cam_password"));
+		} catch (Exception e) {
+			;
+		}
 		videoView.setScaleX(0.1);
 		videoView.setScaleY(0.1);
 		rootVideoContainer.widthProperty().addListener(new ChangeListener() {
@@ -262,6 +267,8 @@ public class InterfaceController implements IController {
 				throw new NumberFormatException();
 			Integer.parseInt(connectPort.getText());
 		} catch (NumberFormatException nfx) {
+			nfx.printStackTrace();
+			System.out.println("2");
 			onConnectFailed();
 			return;
 		}
@@ -287,10 +294,17 @@ public class InterfaceController implements IController {
 					grabber.close();
 					grabber.release();
 					Session.f.closeInfraLed();
-					onPanelInit();
-					onAccountsInit();
-					onNetworkInit();
+					Platform.runLater(new Runnable() {
+						@Override public void run() {
+							onPanelInit();
+							onAccountsInit();
+							onNetworkInit();
+							onStorageInit();
+						}
+					});
 				} catch (Exception e) {
+					System.out.println("1 - " + e.getMessage());
+					e.printStackTrace();
 					Platform.runLater(new Runnable() {
 						@Override public void run() {
 							onConnectFailed();
@@ -578,6 +592,7 @@ public class InterfaceController implements IController {
 						Platform.runLater(() -> panelTitle.setText(I18N.getString("iface.panel.title") + " " + Session.f.getName() + " - " + s.ctrlcl.getHost()));
 					});
 				}
+
 				@Override public void onCancelled() {
 					;
 				}
@@ -648,26 +663,32 @@ public class InterfaceController implements IController {
 	// --- Accord: Accounts --- //
 	@FXML private ListView accountsList;
 	@FXML private Accordion accountsAccord;
-	
+
 	@FXML private TextField accountsAddUsername;
 	@FXML private TextField accountsAddPassword;
 	@FXML private ChoiceBox accountsAddPrivilege;
 	@FXML private Button accountsAddBtn;
-	/*-*/ private Node[] accountsAddNodelist = new Node[] {accountsAddUsername, accountsAddPassword, accountsAddPrivilege};
-	
+	/*-*/ /*private Node[] accountsAddNodelist = new Node[] {
+			accountsAddUsername, accountsAddPassword, accountsAddPrivilege
+	};*/
+
 	@FXML private Label accountsDetailsTitle;
 	@FXML private Label accountsDetailsPriv;
-	
+
 	@FXML private Label accountsDetailsMsg;
 	@FXML private Button accountsDetailsPassword; // I chose to name it "Password" since "Change password" didn't fit on the button .-.
 	@FXML private Button accountsDetailsDelete;
-	
+
 	@FXML private ToggleButton networkDhcpBtn;
 	@FXML private TextField networkIpField;
 	@FXML private TextField networkGatewayField;
 	@FXML private TextField networkMaskField;
 	@FXML private TextField networkDns1Field;
 	@FXML private TextField networkDns2Field;
+	
+	public static final UnaryOperator<Change> ipAddressFilter = c -> {
+		return (c.getControlNewText().matches(JfxUtil.makePartialIPRegex()) ? c : null);
+	};
 
 	/*-*/ private void onAccountsInit() {
 		accountsAccord.expandedPaneProperty().addListener(new ChangeListener<TitledPane>() {
@@ -720,7 +741,7 @@ public class InterfaceController implements IController {
 			});
 		});
 	}
-	
+
 	@FXML private void onAccountAddRequested() {
 		accountsAddUsername.getStyleClass().removeAll("iface-panel-textfield-error");
 		accountsAddPassword.getStyleClass().removeAll("iface-panel-textfield-error");
@@ -733,14 +754,13 @@ public class InterfaceController implements IController {
 			return;
 		}
 		threadpool.execute(() -> {
-			Session.f.addAccount(new Credentials(accountsAddUsername.getText(), accountsAddPassword.getText()), 
-									(Privilege) accountsAddPrivilege.getSelectionModel().getSelectedItem());
+			Session.f.addAccount(new Credentials(accountsAddUsername.getText(), accountsAddPassword.getText()), (Privilege) accountsAddPrivilege.getSelectionModel().getSelectedItem());
 			accountsAddUsername.clear();
 			accountsAddPassword.clear();
 			accountsRefresh();
 		});
 	}
-	
+
 	/*-*/ private void onAccountDetailsShow() {
 		accountsDetailsMsg.setVisible(false);
 		accountsDetailsPassword.setVisible(true);
@@ -748,7 +768,7 @@ public class InterfaceController implements IController {
 		accountsDetailsTitle.setVisible(true);
 		accountsDetailsPriv.setVisible(true);
 	}
-	
+
 	/*-*/ private void onAccountDetailsHide() {
 		accountsDetailsPassword.setVisible(false);
 		accountsDetailsDelete.setVisible(false);
@@ -756,56 +776,53 @@ public class InterfaceController implements IController {
 		accountsDetailsPriv.setVisible(false);
 		accountsDetailsMsg.setVisible(true);
 	}
-	
+
 	@FXML private void onAccountDetailsChangePassword() throws IOException {
 		String targetAcc = (String) accountsList.getSelectionModel().getSelectedItem();
-		DoubleDialog dd = new DoubleDialog(I18N.getString("iface.panel.accord.accounts.details.passworddialog.title"), 
-										   I18N.getString("iface.panel.accord.accounts.details.passworddialog.info") + " " + targetAcc, 
-										   I18N.getString("iface.panel.accord.accounts.details.passworddialog.old"), 
-										   I18N.getString("iface.panel.accord.accounts.details.passworddialog.new"));
+		DoubleDialog dd = new DoubleDialog(I18N.getString("iface.panel.accord.accounts.details.passworddialog.title"), I18N.getString("iface.panel.accord.accounts.details.passworddialog.info") + " " + targetAcc, I18N.getString("iface.panel.accord.accounts.details.passworddialog.old"), I18N.getString("iface.panel.accord.accounts.details.passworddialog.new"));
 		dd.addListener(new IDoubleDialogListener() {
 			@Override public void onCompleted(String... result) {
 				threadpool.execute(() -> {
 					Session.f.changePassword(targetAcc, result[0], result[1]);
 				});
 			}
+
 			@Override public void onCancelled() {
 				;
 			}
 		});
 	}
-	
+
 	@FXML private void onAccountDetailsDelete() {
 		threadpool.execute(() -> {
 			Session.f.deleteAccount((String) accountsList.getSelectionModel().getSelectedItem());
 			accountsRefresh();
 		});
 	}
-	
+
 	/*-*/ private void onNetworkInit() {
 		IPConfig cfg = Session.f.getIPConfig();
-		networkDhcpBtn.setSelected(cfg.isDHCP);
-		networkDhcpBtn.setText(cfg.isDHCP ? I18N.getString("iface.panel.accord.network.dhcp.enabled") : I18N.getString("iface.panel.accord.network.dhcp.disabled"));
-        final UnaryOperator<Change> ipAddressFilter = c -> {
-            return (c.getControlNewText().matches(JfxUtil.makePartialIPRegex()) ? c : null);
-        };
-        networkIpField.setTextFormatter(new TextFormatter(ipAddressFilter));
-        networkIpField.setText(cfg.ip);
-        networkIpField.setTooltip(new Tooltip(I18N.getString("iface.panel.accord.network.ip")));
-        networkGatewayField.setTextFormatter(new TextFormatter(ipAddressFilter));
-        networkGatewayField.setText(cfg.gate);
-        networkGatewayField.setTooltip(new Tooltip(I18N.getString("iface.panel.accord.network.gateway")));
-        networkMaskField.setTextFormatter(new TextFormatter(ipAddressFilter));
-        networkMaskField.setText(cfg.mask);
-        networkMaskField.setTooltip(new Tooltip(I18N.getString("iface.panel.accord.network.subnetmask")));
-        networkDns1Field.setTextFormatter(new TextFormatter(ipAddressFilter));
-        networkDns1Field.setText(cfg.dns1);
-        networkDns1Field.setTooltip(new Tooltip(I18N.getString("iface.panel.accord.network.dns1")));
-        networkDns2Field.setTextFormatter(new TextFormatter(ipAddressFilter));
-        networkDns2Field.setText(cfg.dns2);
-        networkDns2Field.setTooltip(new Tooltip(I18N.getString("iface.panel.accord.network.dns2")));
+		Platform.runLater(() -> {
+			networkDhcpBtn.setSelected(cfg.isDHCP);
+			networkDhcpBtn.setText(cfg.isDHCP ? I18N.getString("iface.panel.accord.network.dhcp.enabled") : I18N.getString("iface.panel.accord.network.dhcp.disabled"));
+			networkIpField.setTextFormatter(new TextFormatter(ipAddressFilter));
+			networkIpField.setText(cfg.ip);
+			networkIpField.setTooltip(new Tooltip(I18N.getString("iface.panel.accord.network.ip")));
+			networkGatewayField.setTextFormatter(new TextFormatter(ipAddressFilter));
+			networkGatewayField.setText(cfg.gate);
+			networkGatewayField.setTooltip(new Tooltip(I18N.getString("iface.panel.accord.network.gateway")));
+			networkMaskField.setTextFormatter(new TextFormatter(ipAddressFilter));
+			networkMaskField.setText(cfg.mask);
+			networkMaskField.setTooltip(new Tooltip(I18N.getString("iface.panel.accord.network.subnetmask")));
+			networkDns1Field.setTextFormatter(new TextFormatter(ipAddressFilter));
+			networkDns1Field.setText(cfg.dns1);
+			networkDns1Field.setTooltip(new Tooltip(I18N.getString("iface.panel.accord.network.dns1")));
+			networkDns2Field.setTextFormatter(new TextFormatter(ipAddressFilter));
+			networkDns2Field.setText(cfg.dns2);
+			networkDns2Field.setTooltip(new Tooltip(I18N.getString("iface.panel.accord.network.dns2")));
+		});
 	}
-	
+
 	@FXML private void onDhcpToggleRequested() throws IOException {
 		ChoiceDialog cd = new ChoiceDialog("Warning", "Changing DHCP status will reboot the device!", "Cancel", "Continue", new IChoiceDialogListener() {
 			@Override public void onCancelled() {
@@ -813,6 +830,7 @@ public class InterfaceController implements IController {
 				networkDhcpBtn.setText(isDhcpEnabled ? I18N.getString("iface.panel.accord.network.dhcp.enabled") : I18N.getString("iface.panel.accord.network.dhcp.disabled"));
 				networkDhcpBtn.setSelected(isDhcpEnabled);
 			}
+
 			@Override public void onAgreed() {
 				networkDhcpBtn.setDisable(true);
 				IPConfig oldcfg = Session.f.getIPConfig();
@@ -824,6 +842,30 @@ public class InterfaceController implements IController {
 				networkDhcpBtn.setDisable(false);
 			}
 		});
+	}
+	
+	@FXML private void onIpChangeRequested() throws IOException {
+		SingleDialog sd = new SingleDialog("Change camera IP address", "Change the IP address of this camera. Warning: the camera will REBOOT after this change!", networkIpField.getText(), new ISingleDialogListener() {
+			@Override public void onCancelled() {
+				;
+			}
+			@Override public void onCompleted(String result) {
+				IPConfig oldcfg = Session.f.getIPConfig();
+				oldcfg.ip = result;
+				Session.f.setIPConfig(oldcfg);
+				networkIpField.setText(Session.f.getIPConfig().ip);
+			}
+		});
+		sd.propField.setTextFormatter(new TextFormatter(ipAddressFilter));
+	}
+	
+	// ---- Storage ---- //
+	@FXML private PieChart storageChart;
+	
+	/*-*/ private void onStorageInit() {
+		storageChart.setData(FXCollections.observableArrayList(
+                new PieChart.Data("Free", Session.f.getFreeStorageCapacity().intValueExact()),
+                new PieChart.Data("Used", Session.f.getTotalStorageCapacity().intValueExact() - Session.f.getFreeStorageCapacity().intValueExact())));
 	}
 
 	// --- Video view --- //

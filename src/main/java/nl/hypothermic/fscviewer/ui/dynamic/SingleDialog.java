@@ -50,12 +50,12 @@ public class SingleDialog implements Initializable {
 	@FXML private BorderPane background;
 	@FXML private Text title;
 	@FXML private Text message;
-	@FXML private TextField prop;
+	@FXML public TextField propField;
 	
 	@FXML private void onCloseRequested() {
-		prop.setStyle(null);
-		if (prop.getText().trim().isEmpty()) {
-			prop.setStyle("-fx-border-color: #ff1a00; -fx-border-width: 1.2px; -fx-border-radius: 0.15em;");
+		propField.setStyle(null);
+		if (propField.getText().trim().isEmpty()) {
+			propField.setStyle("-fx-border-color: #ff1a00; -fx-border-width: 1.2px; -fx-border-radius: 0.15em;");
 			return;
 		}
 		this.onClose();
@@ -68,7 +68,7 @@ public class SingleDialog implements Initializable {
 	
 	@FXML private void onClosed() {
 		for (ISingleDialogListener l : listeners) {
-			l.onCompleted(prop.getText());
+			l.onCompleted(propField.getText());
 		}
 	}
 	
@@ -90,12 +90,12 @@ public class SingleDialog implements Initializable {
 	public void initialize(URL arg0, ResourceBundle arg1) {
 		title.setText(xtitle);
 		message.setText(xmessage);
-		prop.setPromptText(xpropMsg);
-		prop.setFocusTraversable(false);
+		propField.setPromptText(xpropMsg);
+		propField.setFocusTraversable(false);
 		Platform.runLater(new Runnable() {
 			@Override
 			public void run() {
-				prop.requestFocus();
+				propField.requestFocus();
 			}
 		});
 	}

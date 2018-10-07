@@ -146,7 +146,7 @@
 								<AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" style="-fx-padding: 0px;">
                            <children>
                               <ToggleButton fx:id="networkDhcpBtn" layoutX="57.0" layoutY="2.0" mnemonicParsing="false" onAction="#onDhcpToggleRequested" styleClass="iface-panel-btn" AnchorPane.leftAnchor="6.0" AnchorPane.rightAnchor="6.0" AnchorPane.topAnchor="6.0" />
-                              <TextField fx:id="networkIpField" alignment="CENTER" disable="true" layoutX="6.0" layoutY="40.0" promptText="%iface.panel.accord.network.ip" styleClass="iface-panel-textfield" AnchorPane.leftAnchor="6.0" AnchorPane.rightAnchor="6.0" AnchorPane.topAnchor="40.0" />
+                              <TextField fx:id="networkIpField" alignment="CENTER" disable="true" layoutX="6.0" layoutY="40.0" onMouseClicked="#onIpChangeRequested" promptText="%iface.panel.accord.network.ip" styleClass="iface-panel-textfield" AnchorPane.leftAnchor="6.0" AnchorPane.rightAnchor="6.0" AnchorPane.topAnchor="40.0" />
                               <TextField fx:id="networkGatewayField" alignment="CENTER" disable="true" layoutY="65.0" promptText="%iface.panel.accord.network.gateway" styleClass="iface-panel-textfield" AnchorPane.leftAnchor="6.0" AnchorPane.rightAnchor="6.0" AnchorPane.topAnchor="70.0" />
                               <TextField fx:id="networkMaskField" alignment="CENTER" disable="true" layoutX="14.0" layoutY="87.0" promptText="%iface.panel.accord.network.subnetmask" styleClass="iface-panel-textfield" AnchorPane.leftAnchor="6.0" AnchorPane.rightAnchor="6.0" AnchorPane.topAnchor="100.0" />
                               <TextField fx:id="networkDns1Field" alignment="CENTER" disable="true" layoutX="16.0" layoutY="110.0" promptText="%iface.panel.accord.network.dns1" styleClass="iface-panel-textfield" AnchorPane.leftAnchor="6.0" AnchorPane.rightAnchor="6.0" AnchorPane.topAnchor="130.0" />
@@ -161,7 +161,10 @@
                   </TitledPane>
 						<TitledPane animated="false" layoutX="10.0" layoutY="35.0" styleClass="iface-panel-accord-pane" text="%iface.panel.accord.storage">
 							<content>
-								<AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" style="-fx-padding: 0px;" />
+								<AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" style="-fx-padding: 0px;">
+                           <children>
+                              <PieChart fx:id="storageChart" layoutX="37.0" layoutY="24.0" prefHeight="89.0" prefWidth="97.0" AnchorPane.bottomAnchor="24.0" AnchorPane.leftAnchor="37.0" AnchorPane.rightAnchor="36.0" AnchorPane.topAnchor="24.0" />
+                           </children></AnchorPane>
 							</content>
 						</TitledPane>
 						<TitledPane animated="false" styleClass="iface-panel-accord-pane" text="%iface.panel.accord.utility">

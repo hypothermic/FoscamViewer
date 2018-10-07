@@ -9,6 +9,7 @@ Fast, free and open-source desktop application to view and control your Foscam I
 - Most Foscam IP cameras are supported
 - Slick and responsive design
 - Easy to use: no messing around with advanced settings
+- Multiple languages supported (please help translating!)
 
 ## Changelog
 - v1.16
