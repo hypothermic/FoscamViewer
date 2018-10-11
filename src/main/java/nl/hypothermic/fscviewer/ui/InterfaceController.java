@@ -88,6 +88,7 @@ public class InterfaceController implements IController {
 
 	@Override
 	/*-*/ public void initialize(URL loc, ResourceBundle rsc) {
+		System.out.println("--- jfx init interface ---");
 		menubar.setOnMousePressed(new EventHandler<MouseEvent>() {
 			@Override public void handle(MouseEvent event) {
 				if (event.getClickCount() == 1) {
@@ -210,7 +211,8 @@ public class InterfaceController implements IController {
 				lastclickY = event.getSceneY() > maxY ? maxY : event.getSceneY();
 			}
 		});
-		System.setErr(errorStream);
+		System.out.println("--- jfx init interface done ---");
+		//System.setErr(errorStream);
 	}
 
 	// --- Global vars --- //
@@ -237,12 +239,14 @@ public class InterfaceController implements IController {
 	});
 
 	/*-*/ public void prepareShutdown() {
+		System.out.println("--- jfx prepare shutdown ---");
 		if (s != null) {
 			s.viewcl.disconnect();
 		}
 		if (!threadpool.isShutdown()) {
 			threadpool.shutdownNow();
 		}
+		System.out.println("--- jfx prepare shutdown done ---");
 	}
 
 	// --- Connect screen --- //
@@ -258,20 +262,25 @@ public class InterfaceController implements IController {
 	@FXML private Label errorField;
 
 	@FXML private void onConnectRequested() {
+		System.out.println("--- connect requested ---");
 		connectBtn.setVisible(false);
 		errorField.setVisible(false);
 		connectBar.setVisible(true);
 		connectBar.setProgress(ProgressBar.INDETERMINATE_PROGRESS);
+		System.out.println("--- connect requested: parsing input ---");
 		try {
 			if (connectAddr.getText().isEmpty() || connectUser.getText().isEmpty() || connectPwd.getText().isEmpty())
 				throw new NumberFormatException();
 			Integer.parseInt(connectPort.getText());
+			System.out.println("--- connect requested: correct input ---");
 		} catch (NumberFormatException nfx) {
 			nfx.printStackTrace();
 			System.out.println("2");
 			onConnectFailed();
+			System.out.println("--- connect requested: invalid input ---");
 			return;
 		}
+		System.out.println("--- connect requested: connecting ---");
 		threadpool.execute(new Runnable() {
 			@Override public void run() {
 				TransmissionProtocol prot = TransmissionProtocol.match(protocolField.getSelectionModel().getSelectedIndex());
@@ -302,8 +311,9 @@ public class InterfaceController implements IController {
 							onStorageInit();
 						}
 					});
+					System.out.println("--- connect requested: success ---");
 				} catch (Exception e) {
-					System.out.println("1 - " + e.getMessage());
+					System.out.println("--- connect requested: failed: see stacktrace: ---");
 					e.printStackTrace();
 					Platform.runLater(new Runnable() {
 						@Override public void run() {
@@ -393,6 +403,7 @@ public class InterfaceController implements IController {
 	/*-*/ private void onPanelInit() {
 		Platform.runLater(new Runnable() {
 			@Override public void run() {
+				System.out.println("--- panel init ---");
 				if (Session.f.isMirrored()) {
 					mirrorBtn.setSelected(true);
 				} else {
@@ -691,6 +702,7 @@ public class InterfaceController implements IController {
 	};
 
 	/*-*/ private void onAccountsInit() {
+		System.out.println("--- accounts init ---");
 		accountsAccord.expandedPaneProperty().addListener(new ChangeListener<TitledPane>() {
 			@Override public void changed(ObservableValue<? extends TitledPane> property, final TitledPane oldPane, final TitledPane newPane) {
 				if (oldPane != null) {
@@ -723,6 +735,7 @@ public class InterfaceController implements IController {
 	}
 
 	/*-*/ private void accountsRefresh() {
+		System.out.println("--- accounts refresh ---");
 		threadpool.execute(() -> {
 			List<String> tmp = Session.f.getUserList();
 			List<String> ses = Session.f.getSessionList();
@@ -801,6 +814,7 @@ public class InterfaceController implements IController {
 	}
 
 	/*-*/ private void onNetworkInit() {
+		System.out.println("--- net init ---");
 		IPConfig cfg = Session.f.getIPConfig();
 		Platform.runLater(() -> {
 			networkDhcpBtn.setSelected(cfg.isDHCP);
@@ -863,9 +877,12 @@ public class InterfaceController implements IController {
 	@FXML private PieChart storageChart;
 	
 	/*-*/ private void onStorageInit() {
+		System.out.println("--- stor init ---");
+		System.out.println("Free: " + Session.f.getFreeStorageCapacity());
+		System.out.println("Used: " + Session.f.getTotalStorageCapacity());
 		storageChart.setData(FXCollections.observableArrayList(
-                new PieChart.Data("Free", Session.f.getFreeStorageCapacity().intValueExact()),
-                new PieChart.Data("Used", Session.f.getTotalStorageCapacity().intValueExact() - Session.f.getFreeStorageCapacity().intValueExact())));
+                new PieChart.Data("Free", (Session.f.getFreeStorageCapacity().intValueExact())),
+                new PieChart.Data("Used", ((Session.f.getTotalStorageCapacity().intValueExact() - Session.f.getFreeStorageCapacity().intValueExact())))));
 	}
 
 	// --- Video view --- //
