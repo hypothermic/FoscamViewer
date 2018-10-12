@@ -212,7 +212,7 @@
 				<CheckBox fx:id="btnExit" mnemonicParsing="false" onAction="#onExitRequested" styleClass="iface-logo-exitbtn" textAlignment="RIGHT" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="4.0" AnchorPane.topAnchor="0.0" />
 			</children>
 		</AnchorPane>
-		<AnchorPane fx:id="connectPane" prefHeight="620.0" prefWidth="1080.0" styleClass="iface-connect" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+		<AnchorPane fx:id="connectPane" prefHeight="620.0" prefWidth="1080.0" styleClass="iface-connect" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
 			<children>
 				<AnchorPane layoutX="441.0" layoutY="167.0" prefHeight="200.0" prefWidth="200.0" styleClass="iface-connect-subground" AnchorPane.bottomAnchor="175.0" AnchorPane.leftAnchor="325.0" AnchorPane.rightAnchor="325.0" AnchorPane.topAnchor="175.0">
 					<children>
@@ -225,15 +225,16 @@
 								</Text>
 							</children>
 						</TextFlow>
-						<TextField fx:id="connectAddr" layoutX="16.0" layoutY="69.0" prefHeight="27.0" prefWidth="287.0" promptText="%iface.connect.fields.address" styleClass="iface-connect-field" AnchorPane.leftAnchor="14.0" AnchorPane.rightAnchor="126.0" AnchorPane.topAnchor="67.0" />
+						<TextField fx:id="connectAddr" layoutX="16.0" layoutY="69.0" prefHeight="27.0" prefWidth="287.0" promptText="%iface.connect.fields.address" styleClass="iface-connect-field" AnchorPane.leftAnchor="14.0" AnchorPane.rightAnchor="196.0" AnchorPane.topAnchor="67.0" />
 						<TextField fx:id="connectUser" layoutX="15.0" layoutY="101.0" prefHeight="27.0" prefWidth="186.0" promptText="%iface.connect.fields.username" styleClass="iface-connect-field" AnchorPane.leftAnchor="14.0" AnchorPane.rightAnchor="215.0" AnchorPane.topAnchor="100.0" />
-						<TextField fx:id="connectPort" layoutX="304.0" layoutY="69.0" prefHeight="27.0" prefWidth="110.0" promptText="%iface.connect.fields.port" styleClass="iface-connect-field" AnchorPane.leftAnchor="304.0" AnchorPane.rightAnchor="15.0" AnchorPane.topAnchor="67.0" />
+						<TextField fx:id="connectPortHttp" layoutX="243.0" layoutY="68.0" prefHeight="27.0" prefWidth="88.0" promptText="%iface.connect.fields.port.http" styleClass="iface-connect-field" AnchorPane.leftAnchor="233.0" AnchorPane.rightAnchor="106.0" AnchorPane.topAnchor="67.0" />
 						<PasswordField fx:id="connectPwd" layoutX="243.0" layoutY="102.0" promptText="%iface.connect.fields.password" styleClass="iface-connect-field" AnchorPane.leftAnchor="215.0" AnchorPane.rightAnchor="14.0" AnchorPane.topAnchor="100.0" />
 						<Button fx:id="connectBtn" layoutX="14.0" layoutY="229.0" mnemonicParsing="false" onAction="#onConnectRequested" prefHeight="25.0" prefWidth="401.0" styleClass="iface-connect-btn" text="%iface.connect.connectbutton" AnchorPane.bottomAnchor="14.0" AnchorPane.leftAnchor="14.0" AnchorPane.rightAnchor="14.0" />
 						<ProgressBar fx:id="connectBar" layoutX="118.0" layoutY="230.0" maxHeight="25.0" minHeight="25.0" prefHeight="25.0" prefWidth="200.0" progress="0.0" styleClass="iface-connect-bar" visible="false" AnchorPane.bottomAnchor="14.0" AnchorPane.leftAnchor="14.0" AnchorPane.rightAnchor="14.0" />
 						<ListView fx:id="protocolField" layoutX="17.0" layoutY="136.0" nodeOrientation="LEFT_TO_RIGHT" orientation="HORIZONTAL" prefHeight="27.0" prefWidth="197.0" styleClass="iface-connect-protocol" AnchorPane.leftAnchor="16.0" AnchorPane.rightAnchor="215.0" AnchorPane.topAnchor="135.0" />
 						<ListView fx:id="codecField" layoutX="216.0" layoutY="136.0" nodeOrientation="LEFT_TO_RIGHT" orientation="HORIZONTAL" prefHeight="27.0" prefWidth="197.0" styleClass="iface-connect-protocol" AnchorPane.leftAnchor="215.0" AnchorPane.rightAnchor="14.0" />
 						<Label fx:id="errorField" alignment="CENTER" layoutX="14.0" layoutY="54.0" prefHeight="15.0" prefWidth="401.0" text="%iface.connect.error.failed" textAlignment="CENTER" textFill="RED" visible="false" />
+                  <TextField fx:id="connectPortRtsp" layoutX="326.0" layoutY="68.0" opacity="0.6" prefHeight="27.0" prefWidth="88.0" promptText="%iface.connect.fields.port.rtsp" styleClass="iface-connect-field" AnchorPane.rightAnchor="14.0" AnchorPane.topAnchor="67.0" />
 					</children>
 				</AnchorPane>
 				<Line endX="200.0" startX="-200.0" stroke="WHITE" AnchorPane.leftAnchor="339.5" AnchorPane.rightAnchor="339.5" AnchorPane.topAnchor="224.5" />

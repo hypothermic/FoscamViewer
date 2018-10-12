@@ -32,6 +32,7 @@ public class FoscamViewer extends Application {
 	private InterfaceController ic;
 	private static XLogger log = new XLogger(System.out);
 	
+	
 	@Override
 	public void start(Stage xs) throws IOException {
 		this.xs = xs;
@@ -75,7 +76,7 @@ public class FoscamViewer extends Application {
 				}
 			}
 		}
-		avutil.av_log_set_level(avutil.AV_LOG_QUIET);
+		avutil.av_log_set_level(avutil.AV_LOG_INFO);
 		launch(args);
 	}
 }
