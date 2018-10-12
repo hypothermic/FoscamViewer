@@ -63,7 +63,6 @@ public class VideoPlayThread extends Thread {
 	private ByteBuffer outBuffer;
 	
 	public VideoPlayThread(FFmpegFrameGrabber grabber, ImageView view, TransmissionProtocol prot, VideoCodec codec) {
-		System.out.println("--- vpt construct ---");
 		this.grabber = grabber;
 		this.view = view;
 		this.prot = prot;
@@ -74,7 +73,6 @@ public class VideoPlayThread extends Thread {
 		/**
 		 * Inspired from: "https://github.com/bytedeco/javacv/blob/master/samples/JavaFxPlayVideoAndAudio.java" by Dmitriy Gerashenko
 		 */
-		System.out.println("--- vpt run ---");
 		try {
             if (prot == TransmissionProtocol.UDP) {
             	grabber.setOption("rtsp_transport", "udp");
@@ -103,7 +101,6 @@ public class VideoPlayThread extends Thread {
             view.setScaleY(1);
             Thread.currentThread().setName("FSCV-VPT");
             isProcessing = true;
-            System.out.println("--- vpt running ---");
             while (!Thread.interrupted()) {
                 frame = grabber.grab();
                 if (frame == null) {
@@ -139,7 +136,6 @@ public class VideoPlayThread extends Thread {
                     }
                 }
             }
-            System.out.println("--- vpt run complete ---");
             isProcessing = false;
             executor.shutdownNow();
             executor.awaitTermination(10, TimeUnit.SECONDS);
@@ -148,7 +144,6 @@ public class VideoPlayThread extends Thread {
             grabber.release();
             grabber.close();
         } catch (Exception e) {
-        	System.out.println("--- vpt error: see tracktrace: ---");
         	e.printStackTrace();
         }
 	}

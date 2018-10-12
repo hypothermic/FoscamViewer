@@ -26,7 +26,6 @@ public class Session {
     public final Controls ctrlcl = new Controls();
 
     public Session(final String host, final int port, final String user, final String pwd, final ImageView videoView, final TransmissionProtocol prot, final VideoCodec codec) {
-    	System.out.println("--- ses construct ---");
     	this.host = host;
     	this.port = port;
     	this.user = user;
@@ -34,7 +33,6 @@ public class Session {
     	this.videoView = videoView;
     	this.prot = prot;
     	this.codec = codec;
-    	System.out.println("--- ses construct done ---");
     }
 
     public class View {
@@ -46,23 +44,17 @@ public class Session {
     	private VideoManager vp;
 
     	public void connect() {
-    		System.out.println("--- ses conn ---");
     		vp = new VideoManager("rtsp://" + user + ":" + pwd + "@" + host + ":" + port + "/videoMain", prot, codec, videoView);
-    		System.out.println("--- ses conn done ---");
     	}
     	
     	public void connect(String relativeUrl) {
-    		System.out.println("--- ses connr ---");
     		vp = new VideoManager("rtsp://" + user + ":" + pwd + "@" + host + ":" + port + relativeUrl, prot, codec, videoView);
-    		System.out.println("--- ses connr done ---");
     	}
 
     	public void disconnect() {
-    		System.out.println("--- ses disconn ---");
     		if (vp != null) {
     			vp.stop();
     		}
-    		System.out.println("--- ses disconn done ---");
 		}
     }
 
@@ -73,9 +65,7 @@ public class Session {
     	}
 
     	public void connect() throws ConnectException {
-    		System.out.println("--- foscamapi conn ---");
     		f = new Foscam(host, port, user, pwd);
-    		System.out.println("--- foscamapi conn done ---");
     	}
 
     	public String getHost() {

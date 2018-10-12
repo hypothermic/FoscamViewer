@@ -38,16 +38,13 @@ public class VideoManager {
 	public final VideoPlayThread playThread;
 	
 	public VideoManager(String MRL, TransmissionProtocol prot, VideoCodec codec, ImageView view) {
-		System.out.println("--- vdm init ---");
 		this.view = view;
 		FFmpegFrameGrabber grabber = new FFmpegFrameGrabber(MRL);
 		playThread = new VideoPlayThread(grabber, view, prot, codec);
 	    playThread.start();
-	    System.out.println("--- vdm init done ---");
 	}
 	
 	public void stop() {
-		System.out.println("--- vdm stop ---");
 		playThread.interrupt();
 	}
 }

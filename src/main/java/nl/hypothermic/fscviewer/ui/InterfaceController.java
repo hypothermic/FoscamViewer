@@ -76,9 +76,12 @@ import nl.hypothermic.fscviewer.ui.dynamic.IDoubleDialogListener;
 import nl.hypothermic.fscviewer.ui.dynamic.ISingleDialogListener;
 import nl.hypothermic.fscviewer.ui.dynamic.SingleDialog;
 
-/*******************************
- * \ > InterfaceController.java * FoscamViewer by hypothermic * www.github.com/hypothermic/ * See LICENSE.md for legal * \
- *******************************/
+/*******************************\
+ * > InterfaceController.java  *
+ * FoscamViewer by hypothermic *
+ * www.github.com/hypothermic/ *
+ *  See LICENSE.md for legal   *
+\*******************************/
 
 public class InterfaceController implements IController {
 
@@ -88,7 +91,6 @@ public class InterfaceController implements IController {
 
 	@Override
 	/*-*/ public void initialize(URL loc, ResourceBundle rsc) {
-		System.out.println("--- jfx init interface ---");
 		menubar.setOnMousePressed(new EventHandler<MouseEvent>() {
 			@Override public void handle(MouseEvent event) {
 				if (event.getClickCount() == 1) {
@@ -116,18 +118,38 @@ public class InterfaceController implements IController {
 			@Override public void handle(KeyEvent event) {
 				if (event.getCode() == KeyCode.TAB) {
 					event.consume();
-					connectPort.requestFocus();
+					connectPortHttp.requestFocus();
 				}
 			}
 		});
-		connectPort.textProperty().addListener(new ChangeListener<String>() {
+		connectPortHttp.textProperty().addListener(new ChangeListener<String>() {
 			@Override public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
 				if (!newValue.matches("\\d*")) {
-					connectPort.setText(newValue.replaceAll("\\D", ""));
+					connectPortHttp.setText(newValue.replaceAll("\\D", ""));
 				}
 			}
 		});
-		connectPort.addEventFilter(KeyEvent.KEY_PRESSED, new EventHandler<KeyEvent>() {
+		connectPortHttp.addEventFilter(KeyEvent.KEY_PRESSED, new EventHandler<KeyEvent>() {
+			@Override public void handle(KeyEvent event) {
+				if (event.getCode() == KeyCode.TAB) {
+					event.consume();
+					connectPortRtsp.requestFocus();
+				}
+			}
+		});
+		connectPortRtsp.textProperty().addListener(new ChangeListener<String>() {
+			@Override public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
+				if (!newValue.matches("\\d*")) {
+					connectPortHttp.setText(newValue.replaceAll("\\D", ""));
+				}
+				if (newValue.length() >= 1) {
+					connectPortRtsp.setOpacity(1.0);
+				} else {
+					connectPortRtsp.setOpacity(0.6);
+				}
+			}
+		});
+		connectPortRtsp.addEventFilter(KeyEvent.KEY_PRESSED, new EventHandler<KeyEvent>() {
 			@Override public void handle(KeyEvent event) {
 				if (event.getCode() == KeyCode.TAB) {
 					event.consume();
@@ -152,7 +174,7 @@ public class InterfaceController implements IController {
 		codecField.getSelectionModel().select(0);
 		try {
 			connectAddr.setText(System.getenv("fscviewer.cam_addr"));
-			connectPort.setText(System.getenv("fscviewer.cam_port"));
+			connectPortHttp.setText(System.getenv("fscviewer.cam_port"));
 			connectUser.setText(System.getenv("fscviewer.cam_username"));
 			connectPwd.setText(System.getenv("fscviewer.cam_password"));
 		} catch (Exception e) {
@@ -211,8 +233,7 @@ public class InterfaceController implements IController {
 				lastclickY = event.getSceneY() > maxY ? maxY : event.getSceneY();
 			}
 		});
-		System.out.println("--- jfx init interface done ---");
-		//System.setErr(errorStream);
+		System.setErr(errorStream);
 	}
 
 	// --- Global vars --- //
@@ -239,20 +260,19 @@ public class InterfaceController implements IController {
 	});
 
 	/*-*/ public void prepareShutdown() {
-		System.out.println("--- jfx prepare shutdown ---");
 		if (s != null) {
 			s.viewcl.disconnect();
 		}
 		if (!threadpool.isShutdown()) {
 			threadpool.shutdownNow();
 		}
-		System.out.println("--- jfx prepare shutdown done ---");
 	}
 
 	// --- Connect screen --- //
 	@FXML private AnchorPane connectPane;
 	@FXML private TextField connectAddr;
-	@FXML private TextField connectPort;
+	@FXML private TextField connectPortHttp;
+	@FXML private TextField connectPortRtsp;
 	@FXML private TextField connectUser;
 	@FXML private TextField connectPwd;
 	@FXML private ListView protocolField;
@@ -262,33 +282,33 @@ public class InterfaceController implements IController {
 	@FXML private Label errorField;
 
 	@FXML private void onConnectRequested() {
-		System.out.println("--- connect requested ---");
 		connectBtn.setVisible(false);
 		errorField.setVisible(false);
 		connectBar.setVisible(true);
 		connectBar.setProgress(ProgressBar.INDETERMINATE_PROGRESS);
-		System.out.println("--- connect requested: parsing input ---");
+		int httpPort, rtspPort;
 		try {
 			if (connectAddr.getText().isEmpty() || connectUser.getText().isEmpty() || connectPwd.getText().isEmpty())
 				throw new NumberFormatException();
-			Integer.parseInt(connectPort.getText());
-			System.out.println("--- connect requested: correct input ---");
+			httpPort = Integer.parseInt(connectPortHttp.getText());
+			if (connectPortRtsp.getText().length() >= 1) {
+				rtspPort = Integer.parseInt(connectPortRtsp.getText());
+			} else {
+				rtspPort = Integer.parseInt(connectPortHttp.getText());
+			}
 		} catch (NumberFormatException nfx) {
 			nfx.printStackTrace();
-			System.out.println("2");
 			onConnectFailed();
-			System.out.println("--- connect requested: invalid input ---");
 			return;
 		}
-		System.out.println("--- connect requested: connecting ---");
 		threadpool.execute(new Runnable() {
 			@Override public void run() {
 				TransmissionProtocol prot = TransmissionProtocol.match(protocolField.getSelectionModel().getSelectedIndex());
 				VideoCodec codec = VideoCodec.match(codecField.getSelectionModel().getSelectedIndex());
-				s = new Session(connectAddr.getText(), Integer.parseInt(connectPort.getText()), connectUser.getText(), connectPwd.getText(), videoView, prot, codec);
+				s = new Session(connectAddr.getText(), Integer.parseInt(connectPortHttp.getText()), connectUser.getText(), connectPwd.getText(), videoView, prot, codec);
 				try {
 					s.ctrlcl.connect();
-					FFmpegFrameGrabber grabber = new FFmpegFrameGrabber("rtsp://" + connectUser.getText() + ":" + connectPwd.getText() + "@" + connectAddr.getText() + ":" + Integer.parseInt(connectPort.getText()) + "/videoMain");
+					FFmpegFrameGrabber grabber = new FFmpegFrameGrabber("rtsp://" + connectUser.getText() + ":" + connectPwd.getText() + "@" + connectAddr.getText() + ":" + rtspPort + "/videoMain");
 					if (prot == TransmissionProtocol.UDP) {
 						grabber.setOption("rtsp_transport", "udp");
 					} else if (prot == TransmissionProtocol.TCP) {
@@ -311,9 +331,7 @@ public class InterfaceController implements IController {
 							onStorageInit();
 						}
 					});
-					System.out.println("--- connect requested: success ---");
 				} catch (Exception e) {
-					System.out.println("--- connect requested: failed: see stacktrace: ---");
 					e.printStackTrace();
 					Platform.runLater(new Runnable() {
 						@Override public void run() {
@@ -403,7 +421,6 @@ public class InterfaceController implements IController {
 	/*-*/ private void onPanelInit() {
 		Platform.runLater(new Runnable() {
 			@Override public void run() {
-				System.out.println("--- panel init ---");
 				if (Session.f.isMirrored()) {
 					mirrorBtn.setSelected(true);
 				} else {
@@ -702,7 +719,6 @@ public class InterfaceController implements IController {
 	};
 
 	/*-*/ private void onAccountsInit() {
-		System.out.println("--- accounts init ---");
 		accountsAccord.expandedPaneProperty().addListener(new ChangeListener<TitledPane>() {
 			@Override public void changed(ObservableValue<? extends TitledPane> property, final TitledPane oldPane, final TitledPane newPane) {
 				if (oldPane != null) {
@@ -735,7 +751,6 @@ public class InterfaceController implements IController {
 	}
 
 	/*-*/ private void accountsRefresh() {
-		System.out.println("--- accounts refresh ---");
 		threadpool.execute(() -> {
 			List<String> tmp = Session.f.getUserList();
 			List<String> ses = Session.f.getSessionList();
@@ -814,7 +829,6 @@ public class InterfaceController implements IController {
 	}
 
 	/*-*/ private void onNetworkInit() {
-		System.out.println("--- net init ---");
 		IPConfig cfg = Session.f.getIPConfig();
 		Platform.runLater(() -> {
 			networkDhcpBtn.setSelected(cfg.isDHCP);
@@ -877,7 +891,6 @@ public class InterfaceController implements IController {
 	@FXML private PieChart storageChart;
 	
 	/*-*/ private void onStorageInit() {
-		System.out.println("--- stor init ---");
 		System.out.println("Free: " + Session.f.getFreeStorageCapacity());
 		System.out.println("Used: " + Session.f.getTotalStorageCapacity());
 		storageChart.setData(FXCollections.observableArrayList(

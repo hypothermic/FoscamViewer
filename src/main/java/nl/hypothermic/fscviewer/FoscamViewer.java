@@ -36,16 +36,13 @@ public class FoscamViewer extends Application {
 	@Override
 	public void start(Stage xs) throws IOException {
 		this.xs = xs;
-		System.out.println("--- start ---");
 		Thread.currentThread().setName("FSCV-UI");
-		System.out.println("--- init rb ---");
 		ResourceBundle i18n;
 		if (prefLang != null) {
 			i18n = ResourceBundle.getBundle("locale.i18n", prefLang);
 		} else {
 			i18n = ResourceBundle.getBundle("locale.i18n");
 		}
-		System.out.println("--- load UI ---");
 		FXMLLoader l = new FXMLLoader(getClass().getResource("ui/Interface.fxml"), i18n);
 		ic = new InterfaceController();
 		StageManager.initialize(xs);
@@ -54,7 +51,6 @@ public class FoscamViewer extends Application {
 		Parent root = l.load();
 	    xs.setScene(new Scene(root));
 	    xs.initStyle(StageStyle.UNDECORATED);
-	    System.out.println("--- show UI ---");
 	    xs.show();
 	    xs.setOnCloseRequest(new EventHandler<WindowEvent>() {
 			@Override
@@ -62,33 +58,25 @@ public class FoscamViewer extends Application {
 				ic.prepareShutdown();
 			}
 	    });
-	    System.out.println("--- start done ---");
 	}
 
 	private static Locale prefLang;
 	
 	public static void main(String[] args) {
-		System.out.println("--- main ---");
 		if (args.length == 1 && !args[0].isEmpty()) {
-			System.out.println("--- parsing arg lang ---");
 			if (args[0].startsWith("lang=")) {
 				if (args[0].length() > 5) {
 					try {
-						System.out.println("--- parsing arg lang done ---");
 						prefLang = Locale.forLanguageTag(args[0].split("=")[1]);
 					} catch (Exception x) {
-						System.out.println("--- parsing arg lang fail ---");
 						log.severe("Argument \"lang=\" is invalid! Ignored.");
 					}
 				} else {
-					System.out.println("--- parsing arg lang incorrect ---");
 					log.warn("Argument \"lang=\" is empty! Ignored.");
 				}
 			}
 		}
-		System.out.println("--- set av log ---");
 		avutil.av_log_set_level(avutil.AV_LOG_INFO);
-		System.out.println("--- launch jfx app ---");
 		launch(args);
 	}
 }
