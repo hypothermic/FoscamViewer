@@ -14,6 +14,8 @@ Fast, free and open-source desktop application to view and control your Foscam I
 ## Changelog
 - v1.17
     - Fixed a bug where the login screen would not disappear
+    - 
+    - Enable AV logging
 - v1.16
     - Added settings accordion
         - Accounts tab finished
